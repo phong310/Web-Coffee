@@ -1,0 +1,21 @@
+.product_wrapper {
+    padding: 20px 20px 0px 45px;
+    margin: 0px 5px;
+}
+.product_cart {
+    width: 300px;
+    height: 420px;
+    text-align: center;
+    padding: 60px;
+    border-radius: 10px;
+    border: none;
+}
+.product_price {
+    font-size: 20px;
+    color: #0C713D
+}
+.btnAdd {
+    color: #0C713D;
+    font-weight: normal;
+    border-radius: 5px;
+}
