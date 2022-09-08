@@ -1,0 +1,33 @@
+.login_container {
+    margin-left: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 100px
+}
+.login_container > h2 {
+    margin-left: 20%;
+    color: #0C713D
+}
+.form-group > label {
+    margin: 10px;
+    font-weight: bold;
+}
+.form-group > input {
+    margin: 10px;
+    width: 30%;
+}
+.btn_signin {
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0C713D;
+    border-radius: 35px;
+    padding: 5px 36px;
+    cursor: pointer;
+    user-select: none;
+    color: white;
+    margin: 10px 100px;
+}
+  

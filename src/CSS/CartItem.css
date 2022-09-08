@@ -73,6 +73,7 @@
     border-radius: 20px;
     cursor: pointer;
     margin-top: 5px;
+    user-select: none;
   }
   
   .cart_item_quantity_adjustment_number > input {

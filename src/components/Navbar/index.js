@@ -1,12 +1,12 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Layout, Row, Col, Menu, Typography, Space, Button, Badge } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
-import "./index.css"
 import { SearchOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import CartContext from "../../context/Cart";
+import AuthContext from "../../context/Auth";
 
 const { Header, Content } = Layout;
 const { Text } = Typography;
@@ -40,7 +40,8 @@ const LayoutStyled = styled(Layout)`
 `;
 
 export default function Navbar() {
-  const cartCtx = useContext(CartContext)
+  const cartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
 
   return (
     <>
@@ -59,9 +60,9 @@ export default function Navbar() {
               </Col>
               <Col span={8}>
                 <Space size="middle">
-                  <a href="" style={{ fontWeight: "bold", color: "Black" }}>
+                  <Link to="/login" style={{ fontWeight: "bold", color: "Black" }}>
                     Đăng nhập
-                  </a>
+                  </Link>
                   <Text>
                     <a href="" style={fontColor}>
                       VN
@@ -71,18 +72,24 @@ export default function Navbar() {
                       EN
                     </a>
                   </Text>
-                  <Link to="/cart">
-                    <BtnStyle>
-                      Giỏ hàng
-                      <WrappCart>
-                        <Badge count={cartCtx.cartItem.length} showZero color="#0C713D">
-                          <ShoppingCartOutlined
-                            style={{ fontSize: 22, color: "#0C713D" }}
-                          />
-                        </Badge>
-                      </WrappCart>
-                    </BtnStyle>
-                  </Link>
+                  {authCtx.user ? (
+                    <Link to="/cart">
+                      <BtnStyle>
+                        Giỏ hàng
+                        <WrappCart>
+                          <Badge
+                            count={cartCtx.cartItem.length}
+                            showZero
+                            color="#0C713D"
+                          >
+                            <ShoppingCartOutlined
+                              style={{ fontSize: 22, color: "#0C713D" }}
+                            />
+                          </Badge>
+                        </WrappCart>
+                      </BtnStyle>
+                    </Link>
+                  ) : null}
                 </Space>
               </Col>
             </Row>

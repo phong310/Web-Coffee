@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { Carousel, Row, Col, Layout, Divider, Typography, Button } from "antd";
 import "antd/dist/antd.css";
 import StoreSystem from "../components/StoreSystem";
@@ -31,8 +32,8 @@ const WrappStyled2 = styled.div`
 export default function Home() {
   return (
     <>
+      <Navbar />
       <div>
-        <Navbar />
         <Carousel autoplay style={{ marginTop: 10 }}>
           <div>
             <img
@@ -131,6 +132,7 @@ export default function Home() {
         <StoreSystem />
         <Backtop />
       </div>
+      <Footer />
     </>
   );
 }

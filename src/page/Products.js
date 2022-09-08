@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { Layout, Tabs, Select, Input, Button, Divider } from "antd";
 import HeadingTitle from "../components/HeadingTitle";
 import Backtop from "../components/BackTop";
@@ -170,6 +171,7 @@ export default function Products() {
         </div>
       </Content>
       <Backtop />
+      <Footer />
     </>
   );
 }

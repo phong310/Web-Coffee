@@ -4,8 +4,7 @@ import Money from "./Money";
 import { FaTimesCircle } from "react-icons/fa";
 import "../CSS/CartItem.css";
 
-export default function CartItem(props) {
-  const { data } = props;
+export default function CartItem({ data, onQuantityChange }) {
   return (
     <>
       <div className="cart_item_container">
@@ -29,7 +28,7 @@ export default function CartItem(props) {
           <div className="cart_quantity_adjustment_container">
             <QuantityAdjusment
               value={data.quantity}
-              onChange={(value) => props.onQuantityChange(data.id, value)}
+              onChange={(value) => onQuantityChange(data.id, value)}
             />
             <div className="cart_item_total_price">
               <Money value={data.price * data.quantity} />

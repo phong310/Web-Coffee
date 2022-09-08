@@ -1,44 +1,33 @@
 import { useState } from "react";
-import Footer from "./components/Footer";
 import Home from "./page/Home";
 import Products from "./page/Products";
 import Cart from "./page/Cart";
+import Login from "./page/Login";
 import { Route, Routes } from "react-router-dom";
 import CartContext from "./context/Cart";
+import AuthContext from "./context/Auth";
 
 function App() {
   const [cartItem, setCartItem] = useState([]);
-
-  // Item Cart
-  const dispatchCartItem = (item,quantity) => {
-    const newCartItems = cartItem.slice(0);
-    const index = cartItem.findIndex((cart) => cart.id === item.id);
-    if (index < 0) {
-      quantity = 1;
-      item.quantity = quantity;
-      newCartItems.push(item);
-    } else {
-      // newCartItems.splice(index, 1);
-      console.log("item have already existed")
-    }
-    setCartItem(newCartItems);
-  };
+  const [user, setUser] = useState(null);
 
   return (
     <div className="App">
-      <CartContext.Provider
-        value={{
-          cartItem: cartItem,
-          setCartItem: dispatchCartItem,
-        }}
-      >
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/products/" element={<Products />} />
-          <Route path="/Cart" element={<Cart />} />
-        </Routes>
-        <Footer />
-      </CartContext.Provider>
+      <AuthContext.Provider value={{ user: user, setUser: setUser }}>
+        <CartContext.Provider
+          value={{
+            cartItem: cartItem,
+            setCartItem: setCartItem,
+          }}
+        >
+          <Routes>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/Cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </CartContext.Provider>
+      </AuthContext.Provider>
     </div>
   );
 }

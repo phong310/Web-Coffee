@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import CartItem from "../components/CartItem";
 import CartContext from "../context/Cart";
 import { Link } from "react-router-dom";
+import Money from "../components/Money";
 import "../CSS/Cart.css";
 import { Typography, Row, Col, Divider, Input, Radio, Checkbox } from "antd";
 import {
@@ -16,7 +18,7 @@ const { Title } = Typography;
 
 export default function Cart() {
   const cartCtx = useContext(CartContext);
-  const { cartItem } = cartCtx;
+  const { cartItem, setCartItem } = cartCtx;
   console.log(cartItem);
 
   if (!cartItem.length) {
@@ -34,21 +36,29 @@ export default function Cart() {
           </div>
         </div>
         <Divider />
+        <Footer />
       </div>
     );
   }
 
   // update số Lượng
   const updateQuantityChange = (itemId, newQuantity) => {
-    cartItem.map((prod) => {
+    const newCartItems = cartItem.map((prod) => {
       if (prod.id !== itemId) {
         return prod;
       } else {
-        // console.log({...prod, quantity: newQuantity})
-        return {...prod, quantity: newQuantity};
+        return { ...prod, quantity: newQuantity };
       }
     });
+    setCartItem(newCartItems);
   };
+
+  // Tính tổng Tiền
+  const totalPrice = cartItem.reduce((acc, item) => {
+    return acc + item.price * item.quantity;
+  }, 0);
+
+
   return (
     <>
       <Navbar />
@@ -120,7 +130,7 @@ export default function Cart() {
                 <Divider />
                 <div className="total_price_container">
                   <div>Thành tiền</div>
-                  <div>200.000đ</div>
+                  <Money value={totalPrice} />
                 </div>
                 <div className="total_price_container">
                   <div>Phí vận chuyển</div>
@@ -134,7 +144,9 @@ export default function Cart() {
               <div className="checkout_container">
                 <div className="checkout_total">
                   <div>Tổng cộng</div>
-                  <div className="number">200.000đ</div>
+                  <div className="number">
+                    <Money value={totalPrice + 15000} />
+                  </div>
                 </div>
                 <div className="checkout_quantity">
                   <div>Số Lượng</div>
@@ -151,6 +163,7 @@ export default function Cart() {
         </Row>
       </div>
       <Divider />
+      <Footer />
     </>
   );
 }
