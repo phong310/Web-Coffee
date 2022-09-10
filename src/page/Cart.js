@@ -112,7 +112,7 @@ export default function Cart() {
               </div>
             </div>
           </Col>
-          <Col span={12}>
+          <Col span={12} style={{ padding: "5px 70px" }}>
             <div className="container_item_cart">
               <div className="wrapper_container">
                 <h2 className="title">Các món đã chọn</h2>
@@ -150,14 +150,16 @@ export default function Cart() {
                 </div>
                 <div className="checkout_quantity">
                   <div>Số Lượng</div>
-                  <div className="number">2</div>
+                  <div className="number">{cartItem.length}</div>
                 </div>
                 <div className="checkout_btn">Đặt hàng</div>
               </div>
             </div>
             <div className="remove_btn">
               <FaTrash />
-              <div className="Delete">Xóa đơn hàng</div>
+              <div className="Delete">
+                Xóa đơn hàng
+              </div>
             </div>
           </Col>
         </Row>
