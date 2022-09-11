@@ -4,7 +4,7 @@ import Money from "./Money";
 import { FaTimesCircle } from "react-icons/fa";
 import "../CSS/CartItem.css";
 
-export default function CartItem({ data, onQuantityChange }) {
+export default function CartItem({ data, onQuantityChange, deleteItemsCart }) {
   return (
     <>
       <div className="cart_item_container">
@@ -35,7 +35,10 @@ export default function CartItem({ data, onQuantityChange }) {
             </div>
           </div>
         </div>
-        <div className="cart_item_remove_btn">
+        <div
+          className="cart_item_remove_btn"
+          onClick={() => deleteItemsCart(data.id)}
+        >
           <FaTimesCircle />
         </div>
       </div>

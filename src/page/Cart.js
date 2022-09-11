@@ -58,6 +58,17 @@ export default function Cart() {
     return acc + item.price * item.quantity;
   }, 0);
 
+  // xóa item cart
+  const deleteItemsCart = (id) => {
+    const deleteItems = cartItem.filter((item) => item.id !== id);
+    setCartItem(deleteItems);
+  };
+
+  // xóa cart
+  const deleteCart = (cartItem) => {
+    const empCart = (cartItem.length = []);
+    setCartItem(empCart);
+  };
 
   return (
     <>
@@ -123,6 +134,7 @@ export default function Cart() {
                       data={item}
                       key={item.id}
                       onQuantityChange={updateQuantityChange}
+                      deleteItemsCart={deleteItemsCart}
                     />
                   );
                 })}
@@ -157,7 +169,7 @@ export default function Cart() {
             </div>
             <div className="remove_btn">
               <FaTrash />
-              <div className="Delete">
+              <div className="Delete" onClick={deleteCart}>
                 Xóa đơn hàng
               </div>
             </div>
