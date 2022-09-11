@@ -65,6 +65,7 @@
     top: 10px;
     color: #999999;
     font-size: 18px;
+    cursor: pointer;
   }
   .cart_item_quantity_adjustment {
     display: flex;
