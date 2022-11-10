@@ -21,19 +21,19 @@ export default function Products({
   snackData,
   bakeryData,
 }) {
-  const [title, setTitle] = useState("THỨC UỐNG");
+  const [title, setTitle] = useState("🥤 THỨC UỐNG ☕️");
   // console.log(productsData);
 
   const handleChangeTitle = (e) => {
     switch (e) {
       case "1":
-        setTitle("THỨC UỐNG");
+        setTitle("🥤 THỨC UỐNG ☕️");
         break;
       case "2":
-        setTitle("SNACKS");
+        setTitle("🫘 SNACKS 🍿");
         break;
       case "3":
-        setTitle("BAKERY");
+        setTitle("🍩 BAKERY 🍰");
         break;
       default:
         setTitle("THỨC UỐNG");
