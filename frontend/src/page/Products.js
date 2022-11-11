@@ -7,7 +7,6 @@ import Backtop from "../components/BackTop";
 import ProductItem from "./Items/ProductItem";
 import SnackItem from "./Items/SnackItem";
 import BakeryItem from "./Items/BakeryItem";
-// import { DataContext } from "../context/DataAPI";
 import { SearchOutlined } from "@ant-design/icons";
 import "../CSS/Products.css";
 
@@ -19,11 +18,11 @@ export default function Products({
   productsData,
   setProductsData,
   snackData,
+  setSnackData,
   bakeryData,
+  setBakeryData,
 }) {
   const [title, setTitle] = useState("🥤 THỨC UỐNG ☕️");
-  // console.log(productsData);
-
   const handleChangeTitle = (e) => {
     switch (e) {
       case "1":
@@ -41,24 +40,22 @@ export default function Products({
   };
 
   // sắp xếp price
-  const handleChangeSort = (item) => {
-    const result = productsData.filter((item) => item.price);
+  const SortItem = (item, data, setData) => {
+    const result = data.filter((item) => item.price);
     switch (item) {
       case (item = "increase-price"):
         result.sort((a, b) => a.price - b.price);
-        setProductsData(result);
+        setData(result);
         break;
       case (item = "descrease-price"):
         result.sort((a, b) => b.price - a.price);
-        setProductsData(result);
+        setData(result);
         break;
       default:
-        setProductsData(productsData);
+        setData(data);
         break;
     }
   };
-
-  // console.log(productsData);
 
   return (
     <>
@@ -97,7 +94,9 @@ export default function Products({
                     <Select
                       defaultValue="Không lựa chọn"
                       className="group_item_select_price"
-                      onChange={(e) => handleChangeSort(e)}
+                      onChange={(e) =>
+                        SortItem(e, productsData, setProductsData)
+                      }
                     >
                       <Option value="no-select">Không lựa chọn</Option>
                       <Option value="increase-price">Từ thấp đến cao</Option>
@@ -128,10 +127,11 @@ export default function Products({
                     <Select
                       defaultValue="Không lựa chọn"
                       className="snack_item_select_price"
+                      onChange={(e) => SortItem(e, snackData, setSnackData)}
                     >
-                      <Option>Không lựa chọn</Option>
-                      <Option>Từ thấp đến cao</Option>
-                      <Option>Từ cao đến thấp</Option>
+                      <Option value="no-select">Không lựa chọn</Option>
+                      <Option value="increase-price">Từ thấp đến cao</Option>
+                      <Option value="descrease-price">Từ cao đến thấp</Option>
                     </Select>
                   </div>
                   <div className="snack_search">
@@ -158,10 +158,11 @@ export default function Products({
                     <Select
                       defaultValue="Không lựa chọn"
                       className="snack_item_select_price"
+                      onChange={(e) => SortItem(e, bakeryData, setBakeryData)}
                     >
-                      <Option>Không lựa chọn</Option>
-                      <Option>Từ thấp đến cao</Option>
-                      <Option>Từ cao đến thấp</Option>
+                      <Option value="no-select">Không lựa chọn</Option>
+                      <Option value="increase-price">Từ thấp đến cao</Option>
+                      <Option value="descrease-price">Từ cao đến thấp</Option>
                     </Select>
                   </div>
                   <div className="snack_search">
