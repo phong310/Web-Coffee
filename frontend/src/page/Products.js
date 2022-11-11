@@ -80,7 +80,7 @@ export default function Products({
                   <div className="group_item">
                     <strong className="group_item_name">Nhóm sản phẩm</strong>
                     <Select
-                      defaultValue="Chọn nhóm"
+                      defaultValue="Chọn nhóm thôi"
                       className="group_item_select"
                     >
                       <Option>Phuc Long Signature</Option>
