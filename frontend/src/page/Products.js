@@ -99,7 +99,7 @@ export default function Products({
                       }
                     >
                       <Option value="no-select">Không lựa chọn</Option>
-                      <Option value="increase-price">Từ thấp đến cao</Option>
+                      <Option value="increase-price">Từ thấp đến caoooo</Option>
                       <Option value="descrease-price">Từ cao đến thấp</Option>
                     </Select>
                   </div>
