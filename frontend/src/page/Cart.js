@@ -76,7 +76,7 @@ export default function Cart() {
       <div className="wrapper_cart">
         <Title level={1} className="cart_title" style={{ color: "#0C713D" }}>
           <FaShoppingCart className="icon_cart" />
-          CART
+          CART 🛒
         </Title>
         <img
           className="cart_cover"
@@ -99,7 +99,6 @@ export default function Cart() {
                 <div className="delivery_cash">
                   <div className="wrapper_cash">
                     <h2>Phương thức thanh toán</h2>
-
                     <Radio className="cash">
                       <FaMoneyBillWaveAlt className="icon_cash" />
                       Tiền mặt
@@ -126,7 +125,7 @@ export default function Cart() {
           <Col span={12} style={{ padding: "5px 70px" }}>
             <div className="container_item_cart">
               <div className="wrapper_container">
-                <h2 className="title">Các món đã chọn</h2>
+                <h2 className="title">✨ Các món đã chọn ✨</h2>
                 <Divider />
                 {cartItem.map((item) => {
                   return (

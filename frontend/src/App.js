@@ -65,7 +65,9 @@ function App() {
                   productsData={productsData}
                   setProductsData={setProductsData}
                   snackData={snackData}
+                  setSnackData={setSnackData}
                   bakeryData={bakeryData}
+                  setBakeryData={setBakeryData}
                 />
               }
             />

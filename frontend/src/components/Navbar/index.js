@@ -60,9 +60,6 @@ export default function Navbar() {
               </Col>
               <Col span={8}>
                 <Space size="middle">
-                  <Link to="/login" style={{ fontWeight: "bold", color: "Black" }}>
-                    Đăng nhập
-                  </Link>
                   <Text>
                     <a href="" style={fontColor}>
                       VN
@@ -89,7 +86,16 @@ export default function Navbar() {
                         </WrappCart>
                       </BtnStyle>
                     </Link>
-                  ) : null}
+                  ) : (
+                    <>
+                      <Link
+                        to="/login"
+                        style={{ fontWeight: "bold", color: "Black" }}
+                      >
+                        Đăng nhập
+                      </Link>
+                    </>
+                  )}
                 </Space>
               </Col>
             </Row>
