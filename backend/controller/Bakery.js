@@ -28,6 +28,17 @@ const BakeryController = {
         catch (e) {
             res.status(500).json({ err: e })
         }
+    },
+
+    // Search
+    searchBakery: async (req, res) => {
+        try {
+            const title = req.query.title;
+            const Bakery = await bakeryModel.find({ title: new RegExp(title, "i") });
+            res.status(200).json(Bakery);
+        } catch (e) {
+            res.status(500).json({ err: e });
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Layout, Tabs, Select, Input, Button, Divider, Tooltip } from "antd";
@@ -15,18 +15,54 @@ const { Content } = Layout;
 const TabPane = Tabs.TabPane;
 const { Option } = Select;
 
-export default function Products({
-  productsData,
-  setProductsData,
-  snackData,
-  setSnackData,
-  bakeryData,
-  setBakeryData,
-}) {
+export default function Products() {
   const [title, setTitle] = useState("🥤 THỨC UỐNG ☕️");
+
+  // Tìm kiếm
   const [filterName, setFilterName] = useState("")
-  // sessionStorage.setItem('filterProduct', JSON.stringify(filterProduct));
-  // console.log(filterProduct, "Mảng filter:")
+  const [filterSnack, setFilterSnack] = useState("")
+  const [filterBakery, setFilterBakery] = useState("")
+
+  const [products, setProducts] = useState([]);
+  const [snacks, setSnacks] = useState([]);
+  const [bakery, setBakery] = useState([])
+
+  const getProducts = async () => {
+    try {
+      const res = await axios.get("/getAllproducts")
+      setProducts(res.data)
+
+    } catch (e) {
+      console.log("Err:", e)
+    }
+  }
+
+  const getSnacks = async () => {
+    try {
+      const res = await axios.get("/snacks/getAllSnack")
+      setSnacks(res.data)
+
+    } catch (e) {
+      console.log("Err:", e)
+    }
+  }
+
+  const getBakery = async () => {
+    try {
+      const res = await axios.get("/bakery/getAllBakery")
+      setBakery(res.data)
+
+    } catch (e) {
+      console.log("Err:", e)
+    }
+  }
+
+
+  useEffect(() => {
+    getProducts();
+    getSnacks();
+    getBakery();
+  }, [])
 
 
   const handleChangeTitle = (e) => {
@@ -67,7 +103,11 @@ export default function Products({
   const handleSearchFilter = async () => {
     try {
       const res = await axios.get(`http://localhost:8000/search?title=${filterName}`);
-      console.log(res.data)
+      const resSnack = await axios.get(`http://localhost:8000/snacks/search?title=${filterSnack}`)
+      const resBakery = await axios.get(`http://localhost:8000/bakery/search?title=${filterBakery}`)
+      setProducts(res.data)
+      setBakery(resBakery.data)
+      setSnacks(resSnack.data)
 
     } catch (e) {
       console.log("Err:", e)
@@ -78,6 +118,12 @@ export default function Products({
 
   // Reset tìm kiếm
   const handleReset = () => {
+    setFilterName("")
+    setFilterSnack("")
+    setFilterBakery("")
+    getProducts();
+    getSnacks();
+    getBakery();
   }
 
 
@@ -119,7 +165,7 @@ export default function Products({
                       defaultValue="Không lựa chọn"
                       className="group_item_select_price"
                       onChange={(e) =>
-                        SortItem(e, productsData, setProductsData)
+                        SortItem(e, products, setProducts)
                       }
                     >
                       <Option value="no-select">Không lựa chọn</Option>
@@ -148,7 +194,7 @@ export default function Products({
 
               {/* Đồ uống */}
               <div className="wrapper_products">
-                {productsData.map((product) => {
+                {products.map((product) => {
                   return <ProductItem product={product} key={product.id} />;
                 })}
               </div>
@@ -163,7 +209,7 @@ export default function Products({
                     <Select
                       defaultValue="Không lựa chọn"
                       className="snack_item_select_price"
-                      onChange={(e) => SortItem(e, snackData, setSnackData)}
+                      onChange={(e) => SortItem(e, snacks, setSnacks)}
                     >
                       <Option value="no-select">Không lựa chọn</Option>
                       <Option value="increase-price">Từ thấp đến cao</Option>
@@ -172,16 +218,23 @@ export default function Products({
                   </div>
                   <div className="snack_search">
                     <strong>Tìm kiếm</strong>
-                    <Input type="text" placeholder="Tên sản phẩm" />
-                    <Button>
-                      <SearchOutlined />
-                    </Button>
+                    <Input value={filterSnack} onChange={(e) => setFilterSnack(e.target.value)} type="text" placeholder="Tên sản phẩm" />
+                    <Tooltip placement="top" title="Tìm kiếm">
+                      <Button onClick={handleSearchFilter} >
+                        <SearchOutlined />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip placement="top" title="Reset">
+                      <Button onClick={handleReset} >
+                        <ReloadOutlined />
+                      </Button>
+                    </Tooltip>
                   </div>
                 </div>
               </div>
               {/* Snack */}
               <div className="wrapper_products">
-                {snackData.map((snacks) => {
+                {snacks.map((snacks) => {
                   return <SnackItem snacks={snacks} key={snacks.id} />;
                 })}
               </div>
@@ -197,7 +250,7 @@ export default function Products({
                     <Select
                       defaultValue="Không lựa chọn"
                       className="snack_item_select_price"
-                      onChange={(e) => SortItem(e, bakeryData, setBakeryData)}
+                      onChange={(e) => SortItem(e, bakery, setBakery)}
                     >
                       <Option value="no-select">Không lựa chọn</Option>
                       <Option value="increase-price">Từ thấp đến cao</Option>
@@ -206,17 +259,24 @@ export default function Products({
                   </div>
                   <div className="snack_search">
                     <strong>Tìm kiếm</strong>
-                    <Input type="text" placeholder="Tên sản phẩm" />
-                    <Button>
-                      <SearchOutlined />
-                    </Button>
+                    <Input value={filterBakery} onChange={(e) => setFilterBakery(e.target.value)} type="text" placeholder="Tên sản phẩm" />
+                    <Tooltip placement="top" title="Tìm kiếm">
+                      <Button onClick={handleSearchFilter} >
+                        <SearchOutlined />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip placement="top" title="Reset">
+                      <Button onClick={handleReset} >
+                        <ReloadOutlined />
+                      </Button>
+                    </Tooltip>
                   </div>
                 </div>
               </div>
 
               {/* Bakery */}
               <div className="wrapper_products">
-                {bakeryData.map((bakery) => {
+                {bakery.map((bakery) => {
                   return <BakeryItem bakery={bakery} key={bakery.id} />;
                 })}
               </div>

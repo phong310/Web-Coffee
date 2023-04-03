@@ -26,6 +26,17 @@ const SnacksController = {
         } catch (e) {
             res.status(500).json({ err: e })
         }
+    },
+
+    // Search
+    searchSnack: async (req, res) => {
+        try {
+            const title = req.query.title;
+            const Snacks = await snacksModel.find({ title: new RegExp(title, "i") });
+            res.status(200).json(Snacks);
+        } catch (e) {
+            res.status(500).json({ err: e });
+        }
     }
 }
 
