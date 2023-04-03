@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/Auth";
+import { Row, Col } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import "../CSS/Login.css";
 
@@ -26,41 +27,50 @@ export default function Login({ userData }) {
   };
 
   return (
-    <div className="body_wrapper">
-      <div className="section">
+    <Row className="body_wrapper">
+      <Col span={12}>
         <img
-          src="https://phuclong.com.vn/images/logo_2.png"
+          src="https://phuclong.com.vn/uploads/post/20649d183ca5f1-bannertrangchu.jpg"
           alt=""
-          width={80}
+          style={{ width: "auto", height: "100vh", objectFit: "contain" }}
         />
-        <h1>Welcome</h1>
-        <form className="infoform" onSubmit={handleSubmit}>
-          <label>Your name</label>
-          <input
-            type="text"
-            placeholder="Enter your name"
-            value={userName}
-            onChange={(e) => {
-              setUserName(e.target.value)
-            }} />
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value)
-            }} />
-          <button type="submit">Login</button>{" "}
-          <p>
-            You don't have an account, please sign up{" "}
-            <Link to="/register" className="link"><b>Here</b></Link>
-          </p>
-          <p>
-            <Link to="/" className="link"><b><ArrowLeftOutlined style={{ marginRight: 10 }} />Back to home page</b></Link>
-          </p>
-        </form>
-      </div>
-    </div>
+      </Col>
+      <Col span={12}>
+        <Col className="section" span={6}>
+          <img
+            src="https://phuclong.com.vn/images/logo_2.png"
+            alt=""
+            width={80}
+          />
+          <h1>Welcome</h1>
+          <form className="infoform" onSubmit={handleSubmit}>
+            <label>Your name</label>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={userName}
+              onChange={(e) => {
+                setUserName(e.target.value)
+              }} />
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value)
+              }} />
+            <button type="submit">Login</button>{" "}
+            <p>
+              You don't have an account, please sign up{" "}
+              <Link to="/register" className="link"><b>Here</b></Link>
+            </p>
+            <p>
+              <Link to="/" className="link"><b><ArrowLeftOutlined style={{ marginRight: 10 }} />Back to home page</b></Link>
+            </p>
+          </form>
+        </Col>
+      </Col>
+    </Row>
   );
 }

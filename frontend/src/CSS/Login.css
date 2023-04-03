@@ -10,22 +10,21 @@ h1 {
   color: #0c713d;
   font-weight: 700;
   text-align: center;
-  margin-top: 10px
+  margin-top: 10px;
 }
 .body_wrapper {
   font-family: "Sora", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-image: url("https://phuclong.com.vn/uploads/post/20649d183ca5f1-bannertrangchu.jpg");
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
+  background-color: #ffffe0;
   line-height: 1.5;
-  padding: 1rem 2rem 1rem 2rem;
   font-size: 1.15rem;
 }
 .section {
+  margin: 0 auto;
   background-color: white;
   padding: 2rem;
   min-width: 500px;
@@ -33,7 +32,7 @@ h1 {
   box-shadow: 0px 0px 14px 3px rgb(222, 224, 250);
 }
 .section > img {
- margin-left: 40%
+  margin-left: 40%;
 }
 .infoform {
   display: flex;
@@ -71,6 +70,6 @@ p {
   text-align: center;
   margin-top: 15px;
 }
-.link{
-  color: green
+.link {
+  color: green;
 }
