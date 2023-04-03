@@ -8,6 +8,7 @@ import ProductItem from "./Items/ProductItem";
 import SnackItem from "./Items/SnackItem";
 import BakeryItem from "./Items/BakeryItem";
 import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
+import axios from "axios";
 import "../CSS/Products.css";
 
 const { Content } = Layout;
@@ -24,8 +25,7 @@ export default function Products({
 }) {
   const [title, setTitle] = useState("🥤 THỨC UỐNG ☕️");
   const [filterName, setFilterName] = useState("")
-  const [filterProduct, setFilterProduct] = useState([...productsData])
-  sessionStorage.setItem('filterProduct', JSON.stringify(filterProduct));
+  // sessionStorage.setItem('filterProduct', JSON.stringify(filterProduct));
   // console.log(filterProduct, "Mảng filter:")
 
 
@@ -64,19 +64,20 @@ export default function Products({
   };
 
   // Tìm kiếm theo tên
-  const handleSearchFilter = () => {
-    const filter = productsData.filter((item) => {
-      return (
-        item.title.includes(filterName)
-      )
-    })
-    setFilterProduct(filter)
+  const handleSearchFilter = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/search?title=${filterName}`);
+      console.log(res.data)
+
+    } catch (e) {
+      console.log("Err:", e)
+    }
+
   }
 
 
   // Reset tìm kiếm
   const handleReset = () => {
-    setFilterProduct([...productsData])
   }
 
 
@@ -118,7 +119,7 @@ export default function Products({
                       defaultValue="Không lựa chọn"
                       className="group_item_select_price"
                       onChange={(e) =>
-                        SortItem(e, filterProduct, setFilterProduct)
+                        SortItem(e, productsData, setProductsData)
                       }
                     >
                       <Option value="no-select">Không lựa chọn</Option>
@@ -147,7 +148,7 @@ export default function Products({
 
               {/* Đồ uống */}
               <div className="wrapper_products">
-                {filterProduct.map((product) => {
+                {productsData.map((product) => {
                   return <ProductItem product={product} key={product.id} />;
                 })}
               </div>
