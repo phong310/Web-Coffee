@@ -7,23 +7,12 @@ import Register from "./page/Register";
 import { Route, Routes } from "react-router-dom";
 import CartContext from "./context/Cart";
 import AuthContext from "./context/Auth";
-import axios from "axios";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [cartItem, setCartItem] = useState([]);
   const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState("");
-
-  useEffect(() => {
-    // get User
-    const getUsers = async () => {
-      const res = await axios.get("/user/getAllUser");
-      return res;
-    }
-    getUsers().then((res) => setUserData(res.data));
-    getUsers().catch((e) => { console.log({ err: e }) })
-  }, [])
-
 
   return (
     <div className="App">
@@ -34,6 +23,7 @@ function App() {
             setCartItem: setCartItem,
           }}
         >
+          <ToastContainer autoClose={2000} theme="colored" />
           <Routes>
             <Route path="/" exact element={<Home />} />
             <Route
@@ -43,7 +33,7 @@ function App() {
               }
             />
             <Route path="/Cart" element={<Cart />} />
-            <Route path="/login" element={<Login userData={userData} />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
         </CartContext.Provider>

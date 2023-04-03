@@ -1,13 +1,30 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/Auth";
 import { Row, Col } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import axios from "axios";
+import { toast } from 'react-toastify';
 import "../CSS/Login.css";
 
-export default function Login({ userData }) {
+export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  const [userData, setUserData] = useState("")
+
+  const handleUser = async () => {
+    try {
+      const res = await axios.get("/user/getAllUser");
+      setUserData(res.data)
+    } catch (e) {
+      console.log("Err:", e)
+    }
+  }
+
+  useEffect(() => {
+    handleUser()
+  }, [])
 
   const authCtx = useContext(AuthContext);
   let navigate = useNavigate();
@@ -20,9 +37,11 @@ export default function Login({ userData }) {
     );
     if (ngdung) {
       authCtx.setUser(ngdung);
+      toast.success("Đăng nhập thành công !")
       navigate("/");
     } else {
-      alert("Can't find user");
+      toast.warning("Đăng nhập thất bại !")
+
     }
   };
 
