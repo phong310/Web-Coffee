@@ -1,33 +1,76 @@
-.login_container {
-    margin-left: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 100px
+/* *,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+} */
+h1 {
+  font-size: 1.5rem;
+  color: #0c713d;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 10px
 }
-.login_container > h2 {
-    margin-left: 20%;
-    color: #0C713D
+.body_wrapper {
+  font-family: "Sora", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url("https://phuclong.com.vn/uploads/post/20649d183ca5f1-bannertrangchu.jpg");
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  padding: 1rem 2rem 1rem 2rem;
+  font-size: 1.15rem;
 }
-.form-group > label {
-    margin: 10px;
-    font-weight: bold;
+.section {
+  background-color: white;
+  padding: 2rem;
+  min-width: 500px;
+  border-radius: 14px;
+  box-shadow: 0px 0px 14px 3px rgb(222, 224, 250);
 }
-.form-group > input {
-    margin: 10px;
-    width: 30%;
+.section > img {
+ margin-left: 40%
 }
-.btn_signin {
-    font-size: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #0C713D;
-    border-radius: 35px;
-    padding: 5px 36px;
-    cursor: pointer;
-    user-select: none;
-    color: white;
-    margin: 10px 100px;
+.infoform {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
 }
-  
+label {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+input {
+  border: none;
+  border-bottom: 1px solid black;
+  padding-bottom: 0.25rem;
+  outline: none;
+  font-size: 0.8rem;
+}
+
+button {
+  cursor: pointer;
+  /* align-self: flex-start; */
+  justify-content: center;
+  padding: 0.5rem;
+  background-color: #0c713d;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+p {
+  text-align: center;
+  margin-top: 15px;
+}
+.link{
+  color: green
+}

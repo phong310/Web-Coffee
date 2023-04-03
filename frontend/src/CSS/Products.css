@@ -1,6 +1,9 @@
 .products_container {
   margin-top: 25px;
 }
+.content_product {
+  padding: 0px 200px;
+}
 .wrapper_products {
   display: flex;
   flex-wrap: wrap;
@@ -48,6 +51,19 @@
   padding: 0px 10px;
   border-radius: 5px;
   font-weight: bold;
+  margin-top: -1px;
+}
+.snack_search > Button {
+  padding: 0px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: -1px;
+}
+.bakery_search > Button {
+  padding: 0px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: -1px;
 }
 .group_item_select {
   width: 200px;

@@ -63,8 +63,6 @@ const ProductItem = (props) => {
           <strong className="product_price">
             <Money value={product.price} />
           </strong>
-          <br />
-          <br />
           <Button className="btnAdd" onClick={() => onAddToCart(product)}>
             ĐẶT HÀNG
           </Button>

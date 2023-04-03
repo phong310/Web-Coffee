@@ -21,7 +21,8 @@
     font-size: 16px;
     border-left: 1px solid #DCDCDC;
     padding: 15px 0px 15px 90px;
-    align-items:center
+    align-items:center;
+    marign-top: 2px
 }
 .snack_search > input {
     width: 200px;

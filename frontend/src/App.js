@@ -3,6 +3,7 @@ import Home from "./page/Home";
 import Products from "./page/Products";
 import Cart from "./page/Cart";
 import Login from "./page/Login";
+import Register from "./page/Register";
 import { Route, Routes } from "react-router-dom";
 import CartContext from "./context/Cart";
 import AuthContext from "./context/Auth";
@@ -17,35 +18,40 @@ function App() {
   const [userData, setUserData] = useState("");
 
   useEffect(() => {
+    // get drinks
     const getData = async () => {
-      const res = await axios.get("/v1/products/drinks");
+      const res = await axios.get("/getAllproducts");
+      // console.log("Mảng đay nhé:", res.data)
       return res;
-    };
+    }
     getData().then((res) => setProductsData(res.data));
-    getData().catch((err) => console.log(">>> Error", err));
+    getData().catch((e) => { console.log({ err: e }) });
 
+    // get Snaks
     const getSnacks = async () => {
-      const resSnack = await axios.get("/v1/products/snacks");
+      const resSnack = await axios.get("/snacks/getAllSnack");
       return resSnack;
-    };
+    }
     getSnacks().then((res) => setSnackData(res.data));
-    getSnacks().catch((err) => console.log(">>> Error", err));
+    getSnacks().catch((e) => { console.log({ err: e }) });
 
+    // get Bakery
     const getBakery = async () => {
-      const resBakery = await axios.get("/v1/products/bakery");
-      return resBakery;
-    };
+      const res = await axios.get("/bakery/getAllBakery");
+      return res;
+    }
     getBakery().then((res) => setBakeryData(res.data));
-    getBakery().catch((err) => console.log(err));
+    getBakery().catch((e) => { console.log({ err: e }) });
 
-    // get user from backend
-    const getUser = async () => {
-      const resUser = await axios.get("/v1/users");
-      return resUser;
-    };
-    getUser().then((res) => setUserData(res.data));
-    getUser().catch((err) => console.log(err));
-  }, []);
+    // get User
+    const getUsers = async () => {
+      const res = await axios.get("/user/getAllUser");
+      return res;
+    }
+    getUsers().then((res) => setUserData(res.data));
+    getUsers().catch((e) => { console.log({ err: e }) })
+  }, [])
+
 
   return (
     <div className="App">
@@ -73,6 +79,7 @@ function App() {
             />
             <Route path="/Cart" element={<Cart />} />
             <Route path="/login" element={<Login userData={userData} />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </CartContext.Provider>
       </AuthContext.Provider>

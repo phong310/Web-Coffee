@@ -63,9 +63,7 @@ export default function SnackItem(props) {
           </Title>
           <strong className="product_price">
             <Money value={snacks.price} />
-          </strong>{" "}
-          <br />
-          <br />
+          </strong>
           <Button className="btnAdd" onClick={() => onAddToCart(snacks)}>
             ĐẶT HÀNG
           </Button>

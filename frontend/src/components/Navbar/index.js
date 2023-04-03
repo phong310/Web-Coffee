@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Layout, Row, Col, Menu, Typography, Space, Button, Badge } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
+import "../../CSS/Navbar.css"
 import { SearchOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import CartContext from "../../context/Cart";
@@ -14,6 +15,7 @@ const fontColor = {
   color: "#0C713D",
 };
 const BtnStyle = styled(Button)`
+  margin-top: 5px;
   padding-top: 15px;
   display: flex;
   font-size: 12px;
@@ -49,7 +51,7 @@ export default function Navbar() {
         <LayoutStyled>
           <HeaderStyle>
             <Row>
-              <Col span={8}>
+              <Col span={8} className="wrapp_delivery">
                 <img src="https://phuclong.com.vn/images/common/delivery.png" />
               </Col>
               <Col span={8}>

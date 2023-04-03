@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Layout, Tabs, Select, Input, Button, Divider } from "antd";
+import { Layout, Tabs, Select, Input, Button, Divider, Tooltip } from "antd";
 import HeadingTitle from "../components/HeadingTitle";
 import Backtop from "../components/BackTop";
 import ProductItem from "./Items/ProductItem";
 import SnackItem from "./Items/SnackItem";
 import BakeryItem from "./Items/BakeryItem";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
 import "../CSS/Products.css";
 
 const { Content } = Layout;
@@ -23,6 +23,12 @@ export default function Products({
   setBakeryData,
 }) {
   const [title, setTitle] = useState("🥤 THỨC UỐNG ☕️");
+  const [filterName, setFilterName] = useState("")
+  const [filterProduct, setFilterProduct] = useState([...productsData])
+  sessionStorage.setItem('filterProduct', JSON.stringify(filterProduct));
+  // console.log(filterProduct, "Mảng filter:")
+
+
   const handleChangeTitle = (e) => {
     switch (e) {
       case "1":
@@ -57,16 +63,33 @@ export default function Products({
     }
   };
 
+  // Tìm kiếm theo tên
+  const handleSearchFilter = () => {
+    const filter = productsData.filter((item) => {
+      return (
+        item.title.includes(filterName)
+      )
+    })
+    setFilterProduct(filter)
+  }
+
+
+  // Reset tìm kiếm
+  const handleReset = () => {
+    setFilterProduct([...productsData])
+  }
+
+
   return (
     <>
       <Navbar />
       <img
         className="img-cover"
-        alt=""
-        src="	https://phuclong.com.vn/uploads/category/7664dbc7279dc2-dr_berryberry_271022_1920576.jpg"
+        alt="cover"
+        src="https://phuclong.com.vn/uploads/category/d028083085975d-dr_coconutcaramel_1920576old.jpg"
       />
       <HeadingTitle title={title} />
-      <Content>
+      <Content className="content_product">
         <div className="products_container">
           <Tabs
             onChange={handleChangeTitle}
@@ -95,7 +118,7 @@ export default function Products({
                       defaultValue="Không lựa chọn"
                       className="group_item_select_price"
                       onChange={(e) =>
-                        SortItem(e, productsData, setProductsData)
+                        SortItem(e, filterProduct, setFilterProduct)
                       }
                     >
                       <Option value="no-select">Không lựa chọn</Option>
@@ -105,20 +128,32 @@ export default function Products({
                   </div>
                   <div className="group_search">
                     <strong>Tìm kiếm</strong>
-                    <Input type="text" placeholder="Tên sản phẩm" />
-                    <Button>
-                      <SearchOutlined />
-                    </Button>
+                    <Input value={filterName} onChange={(e) => setFilterName(e.target.value)} type="text" placeholder="Tên sản phẩm" />
+                    <Tooltip placement="top" title="Tìm kiếm">
+                      <Button onClick={handleSearchFilter} >
+                        <SearchOutlined />
+                      </Button>
+                    </Tooltip>
+
+                    <Tooltip placement="top" title="Reset">
+                      <Button onClick={handleReset} >
+                        <ReloadOutlined />
+                      </Button>
+                    </Tooltip>
+
                   </div>
                 </div>
               </div>
+
+              {/* Đồ uống */}
               <div className="wrapper_products">
-                {productsData.map((product) => {
+                {filterProduct.map((product) => {
                   return <ProductItem product={product} key={product.id} />;
                 })}
               </div>
               <Divider />
             </TabPane>
+
             <TabPane tab="SNACKS" key="2">
               <div className="container_snack">
                 <div className="wrapper_snack">
@@ -143,6 +178,7 @@ export default function Products({
                   </div>
                 </div>
               </div>
+              {/* Snack */}
               <div className="wrapper_products">
                 {snackData.map((snacks) => {
                   return <SnackItem snacks={snacks} key={snacks.id} />;
@@ -150,6 +186,8 @@ export default function Products({
               </div>
               <Divider />
             </TabPane>
+
+
             <TabPane tab="BAKERY" key="3">
               <div className="container_snack">
                 <div className="wrapper_snack">
@@ -174,6 +212,8 @@ export default function Products({
                   </div>
                 </div>
               </div>
+
+              {/* Bakery */}
               <div className="wrapper_products">
                 {bakeryData.map((bakery) => {
                   return <BakeryItem bakery={bakery} key={bakery.id} />;

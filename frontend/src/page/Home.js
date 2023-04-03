@@ -18,7 +18,7 @@ const imgStyle = {
 const styleColor = {
   color: "#0C713D",
 };
-const BtnStyle = styled(Button)`
+const BtnStyles = styled(Button)`
   background-color: #0c713d;
   color: white;
 `;
@@ -91,7 +91,7 @@ export default function Home() {
                   thưởng trà và cà phê ngày càng bay cao, vươn xa
                 </p>
                 <br />
-                <BtnStyle type="text">XEM THÊM</BtnStyle>
+                <BtnStyles type="text">XEM THÊM</BtnStyles>
               </WrappStyled1>
             </Col>
           </Row>
@@ -112,7 +112,7 @@ export default function Home() {
                   năng động và sáng tạo.
                 </p>
                 <br />
-                <BtnStyle type="text">GIA NHẬP ĐỘI NGŨ PHÚC LONG</BtnStyle>
+                <BtnStyles type="text">GIA NHẬP ĐỘI NGŨ PHÚC LONG</BtnStyles>
               </WrappStyled2>
             </Col>
             <Col span={12}>

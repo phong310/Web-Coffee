@@ -106,8 +106,8 @@ export default function Cart() {
                   </div>
                 </div>
                 <div className="delivery_card">
-                  <Radio className="card">
-                    <FaRegCreditCard className="icon_card" />
+                  <Radio className="cardd">
+                    <FaRegCreditCard className="icon_cardd" />
                     Thẻ ngân hàng
                   </Radio>
                   <br />
