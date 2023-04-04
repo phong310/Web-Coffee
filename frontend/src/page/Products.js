@@ -17,6 +17,7 @@ const { Option } = Select;
 
 export default function Products() {
   const [title, setTitle] = useState("🥤 THỨC UỐNG ☕️");
+  const [imgCover, setImgCover] = useState("https://phuclong.com.vn/uploads/category/d028083085975d-dr_coconutcaramel_1920576old.jpg")
 
   // Tìm kiếm
   const [filterName, setFilterName] = useState("")
@@ -69,12 +70,15 @@ export default function Products() {
     switch (e) {
       case "1":
         setTitle("🥤 THỨC UỐNG ☕️");
+        setImgCover("https://phuclong.com.vn/uploads/category/d028083085975d-dr_coconutcaramel_1920576old.jpg")
         break;
       case "2":
         setTitle("🫘 SNACKS 🍿");
+        setImgCover("https://phuclong.com.vn/uploads/category/035bb0ff5337a6-f31f1487ea3b853793e91869fe90a0c9ef.jpg")
         break;
       case "3":
         setTitle("🍩 BAKERY 🍰");
+        setImgCover("https://phuclong.com.vn/uploads/category/cc670390a9c58d-15deb67f86b543croissant.jpg")
         break;
       default:
         setTitle("THỨC UỐNG");
@@ -133,7 +137,7 @@ export default function Products() {
       <img
         className="img-cover"
         alt="cover"
-        src="https://phuclong.com.vn/uploads/category/d028083085975d-dr_coconutcaramel_1920576old.jpg"
+        src={imgCover}
       />
       <HeadingTitle title={title} />
       <Content className="content_product">
@@ -194,6 +198,17 @@ export default function Products() {
 
               {/* Đồ uống */}
               <div className="wrapper_products">
+                {products.length != 1 ? <div className="product_item">
+                  <div className="item_wrapper">
+                    <span className="bage_new">Món mới</span>
+                    <img className="img_in" src="https://phuclong.com.vn/uploads/dish/c4692e6548c0af-65000306hngtrcarameldaxay.png" alt="" />
+                  </div>
+                  <div className="info_item">
+                    <div className="item_name">Hồng Trà Caramel Dừa Đá Xay</div>
+                    <div className="item_price">70.000đ</div>
+                    <button className="item_btn">ĐẶT HÀNG</button>
+                  </div>
+                </div> : ""}
                 {products.map((product) => {
                   return <ProductItem product={product} key={product.id} />;
                 })}

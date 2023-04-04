@@ -28,12 +28,11 @@ const WrappStyled1 = styled.div`
 const WrappStyled2 = styled.div`
   padding: 50px 100px 0px 0px;
 `;
-
 export default function Home() {
   return (
     <>
       <Navbar />
-      <div>
+      <div style={{ background: 'url("https://phuclong.com.vn/uploads/banner/6313d6d02ac48e-2949308c6b040fcoffeecopy.png")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right' }}>
         <Carousel autoplay style={{ marginTop: 10 }}>
           <div>
             <img

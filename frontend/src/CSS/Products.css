@@ -3,6 +3,11 @@
 }
 .content_product {
   padding: 0px 200px;
+  background: url("https://phuclong.com.vn/images/background/bg_tealeaf.svg"),
+    url("https://phuclong.com.vn/images/background/bg_team.svg");
+  background-repeat: no-repeat, no-repeat;
+  background-position: left top, center bottom;
+  background-size: 20% auto, 75% auto;
 }
 .wrapper_products {
   display: flex;

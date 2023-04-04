@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Button, Typography } from "antd";
+import { Card, Button, Typography, Col } from "antd";
 import CartContext from "../../context/Cart";
 import AuthContext from "../../context/Auth";
 import Money from "../../components/Money";
@@ -51,7 +51,7 @@ const ProductItem = (props) => {
 
   return (
     <>
-      <div className="product_wrapper">
+      <Col className="product_wrapper">
         <Card
           className="product_cart"
           hoverable
@@ -67,7 +67,7 @@ const ProductItem = (props) => {
             ĐẶT HÀNG
           </Button>
         </Card>
-      </div>
+      </Col>
       <Alert
         visible={alertVisible}
         content={AlerTypeMap[alertType]}
