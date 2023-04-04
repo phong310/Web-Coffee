@@ -198,7 +198,7 @@ export default function Products() {
 
               {/* Đồ uống */}
               <div className="wrapper_products">
-                {products.length != 1 ? <div className="product_item">
+                {products.length !== 1 ? <div className="product_item">
                   <div className="item_wrapper">
                     <span className="bage_new">Món mới</span>
                     <img className="img_in" src="https://phuclong.com.vn/uploads/dish/c4692e6548c0af-65000306hngtrcarameldaxay.png" alt="" />
