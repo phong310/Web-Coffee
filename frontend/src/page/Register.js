@@ -29,12 +29,12 @@ export default function Register() {
     try {
       const newUsers = {
         username: userName,
+        email: email,
         password: password,
         confirm: confirmPass,
-        email: email,
         phone: phoneNumber,
       }
-      const res = await axios.post("/user/createUser", newUsers)
+      const res = await axios.post("http://localhost:8000/user/createUser", newUsers)
       console.log(res.data)
       toast.success("Đăng ký tài khoản thành công !");
       navigate("/login")

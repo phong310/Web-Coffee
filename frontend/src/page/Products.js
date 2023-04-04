@@ -29,7 +29,7 @@ export default function Products() {
 
   const getProducts = async () => {
     try {
-      const res = await axios.get("/getAllproducts")
+      const res = await axios.get("http://localhost:8000/getAllproducts")
       setProducts(res.data)
 
     } catch (e) {
@@ -39,7 +39,7 @@ export default function Products() {
 
   const getSnacks = async () => {
     try {
-      const res = await axios.get("/snacks/getAllSnack")
+      const res = await axios.get("http://localhost:8000/snacks/getAllSnack")
       setSnacks(res.data)
 
     } catch (e) {
@@ -49,7 +49,7 @@ export default function Products() {
 
   const getBakery = async () => {
     try {
-      const res = await axios.get("/bakery/getAllBakery")
+      const res = await axios.get("http://localhost:8000/bakery/getAllBakery")
       setBakery(res.data)
 
     } catch (e) {

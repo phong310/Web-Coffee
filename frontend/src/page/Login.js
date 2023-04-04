@@ -15,7 +15,7 @@ export default function Login() {
 
   const handleUser = async () => {
     try {
-      const res = await axios.get("/user/getAllUser");
+      const res = await axios.get("http://localhost:8000/user/getAllUser");
       setUserData(res.data)
     } catch (e) {
       console.log("Err:", e)
