@@ -63,7 +63,7 @@ export default function Login() {
           />
           <h1>Welcome</h1>
           <form className="infoform" onSubmit={handleSubmit}>
-            <label>Your name</label>
+            <label>Your name:</label>
             <input
               type="text"
               placeholder="Enter your name"
@@ -71,7 +71,7 @@ export default function Login() {
               onChange={(e) => {
                 setUserName(e.target.value)
               }} />
-            <label>Password</label>
+            <label>Password:</label>
             <input
               type="password"
               placeholder="Enter your password"

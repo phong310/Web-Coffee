@@ -16,15 +16,18 @@ const UserController = {
     createUser: async (req, res) => {
         try {
             const newUser = {
-                id: 1,
-                username: "user310",
-                password: "123456a"
+                username: req.body.username,
+                password: req.body.password,
+                confirm: req.body.confirm,
+                email: req.body.email,
+                phone: req.body.phone
             };
             const user = new UserModel(newUser);
             await user.save();
             res.status(200).json(user)
         } catch (e) {
             res.status(500).json({ err: e })
+            console.log(res)
         }
     }
 }
