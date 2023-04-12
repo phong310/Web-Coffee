@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Layout, Row, Col, Menu, Typography, Space, Button, Badge } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { Layout, Row, Col, Menu, Typography, Space, Button, Badge, Avatar, Dropdown } from "antd";
+import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import "../../CSS/Navbar.css"
 import { SearchOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import CartContext from "../../context/Cart";
 import AuthContext from "../../context/Auth";
+import { toast } from 'react-toastify';
 
 const { Header, Content } = Layout;
 const { Text } = Typography;
@@ -41,16 +42,38 @@ const LayoutStyled = styled(Layout)`
   margin-bottom: 5px;
 `;
 
+
+
 export default function Navbar() {
   const cartCtx = useContext(CartContext);
-  const authCtx = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  // console.log(authCtx)
+
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    navigate("/login");
+    toast.success("Đăng xuất thành công");
+    setUser("")
+  }
+  const itemsDrop = [
+    {
+      label: <a href="#">Thông tin tài khoản</a>,
+      key: '0',
+    },
+    {
+      label: <a onClick={handleLogout}>Đăng xuất</a>,
+      key: '1',
+    },
+  ];
+
 
   return (
     <>
       <div>
         <LayoutStyled>
           <HeaderStyle>
-            <Row>
+            <Row style={{ alignItems: 'center' }}>
               <Col span={8} className="wrapp_delivery">
                 <img src="https://phuclong.com.vn/images/common/delivery.png" />
               </Col>
@@ -71,28 +94,38 @@ export default function Navbar() {
                       EN
                     </a>
                   </Text>
-                  {authCtx.user ? (
-                    <Link to="/cart">
-                      <BtnStyle>
-                        Giỏ hàng
-                        <WrappCart>
-                          <Badge
-                            count={cartCtx.cartItem.length}
-                            showZero
-                            color="#0C713D"
-                          >
-                            <ShoppingCartOutlined
-                              style={{ fontSize: 22, color: "#0C713D" }}
-                            />
-                          </Badge>
-                        </WrappCart>
-                      </BtnStyle>
-                    </Link>
+                  <Link to="/cart">
+                    <BtnStyle>
+                      Giỏ hàng
+                      <WrappCart>
+                        <Badge
+                          count={cartCtx.cartItem.length}
+                          showZero
+                          color="#0C713D"
+                        >
+                          <ShoppingCartOutlined
+                            style={{ fontSize: 22, color: "#0C713D" }}
+                          />
+                        </Badge>
+                      </WrappCart>
+                    </BtnStyle>
+                  </Link>
+                  {user ? (
+                    <Col style={{ marginLeft: '15px' }}>
+                      <Avatar size="30" src={user.avatar} />
+                      <Dropdown
+                        overlay={<Menu items={itemsDrop} />}
+                        placement="bottom"
+                        arrow
+                        trigger={['click']}>
+                        <span style={{ fontWeight: "bold", color: "#0C713D", marginLeft: '10px', cursor: 'pointer' }}>{user.username}</span>
+                      </Dropdown>
+                    </Col>
                   ) : (
                     <>
                       <Link
                         to="/login"
-                        style={{ fontWeight: "bold", color: "Black" }}
+                        style={{ fontWeight: "bold", color: "#0C713D", marginLeft: '10px' }}
                       >
                         Đăng nhập
                       </Link>

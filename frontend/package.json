@@ -14,6 +14,7 @@
     "chartist": "0.11.4",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.9",
+    "rc-align": "^4.0.15",
     "react": "^18.2.0",
     "react-bootstrap": "2.4.0",
     "react-chartist": "0.14.4",
