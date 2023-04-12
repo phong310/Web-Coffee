@@ -28,11 +28,11 @@ export default function Cart() {
         <div className="empty_cart_container">
           <FaShoppingCart size={45} />
           <div className="empt_cart_message">
-            Your cart is empty. Go back{" "}
+            Giỏ hàng của bạn đang rỗng. Quay lại {" "}
             <Link to="/" className="Link">
-              Home
-            </Link>{" "}
-            to continue shopping !
+              Trang chủ {" "}
+            </Link>
+            để tiếp tục mua sắm
           </div>
         </div>
         <Divider />
@@ -106,9 +106,9 @@ export default function Cart() {
               <div className="delivery_contaier">
                 <div className="delivery_wrapper">
                   <h2>Giao hàng</h2>
-                  <Input type="text" placeholder="Địa chỉ giao hàng" />
                   <Input type="text" placeholder="Tên người nhận" />
                   <Input type="text" placeholder="Số điện thoại" />
+                  <Input type="text" placeholder="Địa chỉ giao hàng" />
                   <Input type="text" placeholder="Thêm ghi chú giao hàng" />
                 </div>
                 <div className="delivery_pay">
