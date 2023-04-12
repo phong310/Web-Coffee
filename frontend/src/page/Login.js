@@ -61,31 +61,31 @@ export default function Login() {
             alt=""
             width={80}
           />
-          <h1>Welcome</h1>
+          <h1>Hệ thống bán hàng trực tiếp</h1>
           <form className="infoform" onSubmit={handleSubmit}>
-            <label>Your name:</label>
+            <label>Tên tài khoản:</label>
             <input
               type="text"
-              placeholder="Enter your name"
+              placeholder="Nhập tên"
               value={userName}
               onChange={(e) => {
                 setUserName(e.target.value)
               }} />
-            <label>Password:</label>
+            <label>Mật khẩu:</label>
             <input
               type="password"
-              placeholder="Enter your password"
+              placeholder="Nhập mật khẩu"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value)
               }} />
-            <button type="submit">Login</button>{" "}
+            <button type="submit">Đăng nhập</button>
             <p>
-              You don't have an account, please sign up{" "}
-              <Link to="/register" className="link"><b>Here</b></Link>
+              Bạn chưa có tài khoản, vui lòng đăng ký
+              <Link to="/register" className="link"><b> ở đây</b></Link>
             </p>
             <p>
-              <Link to="/" className="link"><b><ArrowLeftOutlined style={{ marginRight: 10 }} />Back to home page</b></Link>
+              <Link to="/" className="link"><b><ArrowLeftOutlined style={{ marginRight: 10 }} />Quay về trang chủ</b></Link>
             </p>
           </form>
         </Col>

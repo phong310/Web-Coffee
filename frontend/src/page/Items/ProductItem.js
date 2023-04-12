@@ -44,9 +44,9 @@ const ProductItem = (props) => {
   };
 
   const AlerTypeMap = {
-    success: "Added to cart",
-    warning: "Item already existed",
-    confirm: "Please login to perform action",
+    success: "Đã thêm vào giỏ hàng",
+    warning: "Sản phẩm đã tồn tại trong giỏ hàng",
+    confirm: "Vui lòng đăng nhập trước khi đặt hàng",
   };
 
   return (
@@ -72,8 +72,8 @@ const ProductItem = (props) => {
         visible={alertVisible}
         content={AlerTypeMap[alertType]}
         type={alertType}
-        confirmText={!auth.user ? "login" : "checkout"}
-        cancelText="continue"
+        confirmText={!auth.user ? "Đăng nhập" : "Thanh toán"}
+        cancelText="Tiếp tục"
         onCancel={() => {
           setAlertVisible(false);
         }}

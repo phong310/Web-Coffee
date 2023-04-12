@@ -1,18 +1,13 @@
+import { Checkbox, Col, Divider, Input, Radio, Row, Steps, Typography } from "antd";
 import React, { useContext, useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import CartItem from "../components/CartItem";
-import CartContext from "../context/Cart";
+import { FaMoneyBillWaveAlt, FaRegCreditCard, FaShoppingCart, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import Money from "../components/Money";
 import "../CSS/Cart.css";
-import { Typography, Row, Col, Divider, Input, Radio, Checkbox, Steps } from "antd";
-import {
-  FaShoppingCart,
-  FaRegCreditCard,
-  FaMoneyBillWaveAlt,
-  FaTrash,
-} from "react-icons/fa";
+import CartItem from "../components/CartItem";
+import Footer from "../components/Footer";
+import Money from "../components/Money";
+import Navbar from "../components/Navbar";
+import CartContext from "../context/Cart";
 
 const { Title } = Typography;
 const { Step } = Steps;
@@ -20,12 +15,13 @@ const { Step } = Steps;
 export default function Cart() {
   const cartCtx = useContext(CartContext);
   const [pay, setPay] = useState(1)
+  const [checkEmpty, setCheckEmpty] = useState(true)
   const { cartItem, setCartItem } = cartCtx;
   console.log(cartItem);
 
   const [currentOrder, setCurrentOder] = useState(1)
 
-  if (!cartItem.length) {
+  if (!cartItem.length && checkEmpty) {
     return (
       <div>
         <Navbar />
@@ -76,6 +72,9 @@ export default function Cart() {
 
   const handleOrder = () => {
     setCurrentOder(currentOrder + 2)
+    setCartItem([])
+    setCheckEmpty(false)
+
   }
 
   return (
@@ -100,7 +99,7 @@ export default function Cart() {
             <Step title="Thành công" />
           </Steps>
         </Col>
-        {currentOrder === 3 ?
+        {currentOrder === 3 && !checkEmpty ?
           <h1 style={{ margin: "175px 0" }}>Bạn đã đặt hàng thành công !</h1>
           : <Row>
             <Col span={12}>

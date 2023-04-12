@@ -62,20 +62,20 @@ export default function Register() {
             alt=""
             width={80}
           />
-          <h1>Sign Up</h1>
+          <h1>Đăng ký</h1>
           <form className="infoform" onSubmit={handleRegister}>
-            <label>Your name:</label>
-            <input name="username" value={userName} onChange={(e) => { setUserName(e.target.value) }} type="text" placeholder="Enter your name" />
-            <label>Email address:</label>
-            <input name="email" value={email} onChange={(e) => { setEmail(e.target.value) }} type="text" placeholder="Enter your email" />
-            <label>Password:</label>
-            <input name="password" value={password} onChange={(e) => { setPassword(e.target.value) }} type="password" placeholder="Enter your password" />
-            <label>Confirm Password:</label>
-            <input name="confirm" value={confirmPass} onChange={(e) => { setConfirmPass(e.target.value) }} type="password" placeholder="Confirm your password" />
-            <label>Phone number:</label>
-            <input name="phone" value={phoneNumber} onChange={(e) => { setPhoneNumber(e.target.value) }} type="text" placeholder="Enter your phone" />
-            <button type="submit" onClick={handleRegister}>Continue</button>
-            <p>You already hava an account <Link to="/login" className="link"><b>Log in here</b></Link></p>
+            <label>Tên đăng nhập:</label>
+            <input name="username" value={userName} onChange={(e) => { setUserName(e.target.value) }} type="text" placeholder="Nhập tên" />
+            <label>Email:</label>
+            <input name="email" value={email} onChange={(e) => { setEmail(e.target.value) }} type="text" placeholder="Nhập email" />
+            <label>Mật khẩu:</label>
+            <input name="password" value={password} onChange={(e) => { setPassword(e.target.value) }} type="password" placeholder="Nhập mật khẩu" />
+            <label>Xác nhận:</label>
+            <input name="confirm" value={confirmPass} onChange={(e) => { setConfirmPass(e.target.value) }} type="password" placeholder="Xác nhận mật khẩu" />
+            <label>Số điện thoại:</label>
+            <input name="phone" value={phoneNumber} onChange={(e) => { setPhoneNumber(e.target.value) }} type="text" placeholder="Nhập số điện thoại" />
+            <button type="submit" onClick={handleRegister}>Tiếp tục</button>
+            <p>Bạn đã có tài khoản ? <Link to="/login" className="link"><b>Đăng nhập tại đây</b></Link></p>
           </form>
         </Col>
       </Col>
