@@ -61,7 +61,7 @@ export default function Login() {
             alt=""
             width={80}
           />
-          <h1>Hệ thống bán hàng trực tiếp</h1>
+          <h1>Hệ thống bán hàng trực tuyến</h1>
           <form className="infoform" onSubmit={handleSubmit}>
             <label>Tên tài khoản:</label>
             <input
