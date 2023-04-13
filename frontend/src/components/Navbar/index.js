@@ -112,7 +112,7 @@ export default function Navbar() {
                   </Link>
                   {user ? (
                     <Col style={{ marginLeft: '15px' }}>
-                      <Avatar size="30" src={user.avatar} />
+                      {user.avatar ? <Avatar size="30" src={user.avatar} /> : <Avatar size="30" icon={<UserOutlined />} />}
                       <Dropdown
                         overlay={<Menu items={itemsDrop} />}
                         placement="bottom"
