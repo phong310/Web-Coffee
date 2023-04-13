@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Typography, Card } from "antd";
+import { Button, Typography, Card, Col, Image } from "antd";
 import Money from "../../components/Money";
 import CartContext from "../../context/Cart";
 import AuthContext from "../../context/Auth";
@@ -56,8 +56,11 @@ export default function SnackItem(props) {
         <Card
           className="product_cart"
           hoverable
-          cover={<img alt="" src={snacks.img} />}
+        // cover={<img alt="" src={snacks.img} />}
         >
+          <Col className="product_img">
+            <Image src={snacks.img} width={150} />
+          </Col>
           <Title level={5} className="product_title">
             {snacks.title}
           </Title>

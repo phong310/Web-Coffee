@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Button, Typography, Col } from "antd";
+import { Card, Button, Typography, Col, Image } from "antd";
 import CartContext from "../../context/Cart";
 import AuthContext from "../../context/Auth";
 import Money from "../../components/Money";
@@ -55,8 +55,11 @@ const ProductItem = (props) => {
         <Card
           className="product_cart"
           hoverable
-          cover={<img alt="" src={product.img} />}
+        // cover={<img alt="" src={product.img} />}
         >
+          <Col className="product_img">
+            <Image src={product.img} width={150} />
+          </Col>
           <Title level={5} className="product_title">
             {product.title}
           </Title>

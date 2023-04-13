@@ -11,6 +11,12 @@
   border: none;
   background-color: transparent;
 }
+.product_img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 .product_price {
   font-size: 20px;
   color: #0c713d;
