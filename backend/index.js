@@ -7,6 +7,7 @@ const Products = require("./routers/Products")
 const Snacks = require("./routers/Snacks")
 const Bakery = require("./routers/Bakery")
 const User = require("./routers/User")
+const Order = require("./routers/Order")
 
 
 dotenv.config();
@@ -22,6 +23,8 @@ app.use("/snacks", Snacks)
 app.use("/bakery", Bakery)
 
 app.use("/user", User)
+
+app.use("/order", Order)
 
 //connect MongoDB
 moongoose.connect(process.env.MONGODB_URL, () => {

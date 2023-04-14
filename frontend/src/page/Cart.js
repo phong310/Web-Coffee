@@ -1,5 +1,5 @@
-import { Checkbox, Col, Divider, Input, Radio, Row, Steps, Typography } from "antd";
-import React, { useContext, useState } from "react";
+import { Button, Checkbox, Col, Divider, Input, Radio, Row, Steps, Typography, message } from "antd";
+import React, { useContext, useEffect, useState } from "react";
 import { FaMoneyBillWaveAlt, FaRegCreditCard, FaShoppingCart, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../CSS/Cart.css";
@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import Money from "../components/Money";
 import Navbar from "../components/Navbar";
 import CartContext from "../context/Cart";
+import axios from "axios";
 
 const { Title } = Typography;
 const { Step } = Steps;
@@ -16,10 +17,38 @@ export default function Cart() {
   const cartCtx = useContext(CartContext);
   const [pay, setPay] = useState(1)
   const [checkEmpty, setCheckEmpty] = useState(true)
+  const [orderId, setOrderId] = useState(0);
+  const [customerName, setCustomerName] = useState("");
+  const [nameItem, setNameItem] = useState([]);
+  const [quantityItem, setQuantityItem] = useState(0);
+  const [priceItem, setPriceItem] = useState(0);
+  const [customerPhone, setCustomerPhone] = useState(0);
+  const [customerAddress, setCustomerAddress] = useState("");
+  const [orderDes, setOrderDes] = useState("");
+  const [orderStatus, setOrderStatus] = useState("order")
+
+
+
   const { cartItem, setCartItem } = cartCtx;
-  console.log(cartItem);
+  // console.log(cartItem);
 
   const [currentOrder, setCurrentOder] = useState(1)
+
+  useEffect(() => {
+    // sản phẩm 
+    const itemNames = cartItem.map((item) => ({ name: item.title, quantity: item.quantity }));
+
+    // tổng số lượng sp
+    const quantityItemss = cartItem.reduce((idx, item) => {
+      return item.quantity + idx
+    }, 0)
+    setNameItem(itemNames);
+    setQuantityItem(quantityItemss)
+
+    setPriceItem(cartItem.reduce((acc, item) => {
+      return (acc + item.price * item.quantity) + 15000;
+    }, 0))
+  }, [cartItem])
 
   if (!cartItem.length && checkEmpty) {
     return (
@@ -55,7 +84,7 @@ export default function Cart() {
 
   // Tính tổng Tiền
   const totalPrice = cartItem.reduce((acc, item) => {
-    return acc + item.price * item.quantity;
+    return acc + item.price * item.quantity;;
   }, 0);
 
   // xóa item cart
@@ -70,11 +99,36 @@ export default function Cart() {
     setCartItem(empCart);
   };
 
-  const handleOrder = () => {
-    setCurrentOder(currentOrder + 2)
-    setCartItem([])
-    setCheckEmpty(false)
+  // Đặt hàng
+  const handleOrder = async () => {
+    const newOrder = {
+      order_id: orderId,
+      order_products: [
+        {
+          item: nameItem,
+          quantity: quantityItem,
+          price: priceItem,
+        }
+      ],
+      customer_name: customerName,
+      customer_phone: customerPhone,
+      customer_address: customerAddress,
+      order_pay: pay,
+      order_description: orderDes,
+      order_status: orderStatus
 
+    }
+    console.log("Đơn hàng:", newOrder)
+    try {
+      await axios.post("http://localhost:8000/order/createOrder", newOrder)
+      setCurrentOder(currentOrder + 2)
+      setCartItem([])
+      setCheckEmpty(false)
+      message.success("Đặt hàng thành công !")
+
+    } catch (e) {
+      console.log("Err:", e)
+    }
   }
 
   return (
@@ -100,16 +154,19 @@ export default function Cart() {
           </Steps>
         </Col>
         {currentOrder === 3 && !checkEmpty ?
-          <h1 style={{ margin: "175px 0" }}>Bạn đã đặt hàng thành công !</h1>
+          <h1 style={{ margin: "139px 0" }}>
+            Cảm ơn bạn đã tin dùng sản phẩm của chúng tôi ! <br />
+            <Button type="primary" shape="round" size='large' style={{ backgroundColor: '#0C713D', color: "white" }}>Bạn có thể xem lại lịch sử đơn hàng tại đây</Button>
+          </h1>
           : <Row>
             <Col span={12}>
               <div className="delivery_contaier">
                 <div className="delivery_wrapper">
                   <h2>Giao hàng</h2>
-                  <Input type="text" placeholder="Tên người nhận" />
-                  <Input type="text" placeholder="Số điện thoại" />
-                  <Input type="text" placeholder="Địa chỉ giao hàng" />
-                  <Input type="text" placeholder="Thêm ghi chú giao hàng" />
+                  <Input value={customerName} onChange={(e) => setCustomerName(e.target.value)} type="text" placeholder="Tên người nhận" />
+                  <Input value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} type="number" placeholder="Số điện thoại" />
+                  <Input value={customerAddress} onChange={(e) => setCustomerAddress(e.target.value)} type="text" placeholder="Địa chỉ giao hàng" />
+                  <Input value={orderDes} onChange={(e) => setOrderDes(e.target.value)} type="text" placeholder="Thêm ghi chú giao hàng" />
                 </div>
                 <div className="delivery_pay">
                   <Radio.Group value={pay} onChange={(e) => setPay(e.target.value)}>
