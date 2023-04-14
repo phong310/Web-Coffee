@@ -56,15 +56,25 @@ export default function Navbar() {
     toast.success("Đăng xuất thành công");
     setUser("")
   }
+
+  const handleOrderHistory = () => {
+    navigate("/order-history");
+  }
+
   const itemsDrop = [
     {
-      label: <a href="#">Thông tin tài khoản</a>,
+      label: <a onClick={handleOrderHistory}>Lịch sử đơn hàng</a>,
       key: '0',
     },
     {
-      label: <a onClick={handleLogout}>Đăng xuất</a>,
+      label: <a href="#">Thông tin tài khoản</a>,
       key: '1',
     },
+    {
+      label: <a onClick={handleLogout}>Đăng xuất</a>,
+      key: '2',
+    },
+
   ];
 
 

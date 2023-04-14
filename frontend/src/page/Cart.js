@@ -156,7 +156,9 @@ export default function Cart() {
         {currentOrder === 3 && !checkEmpty ?
           <h1 style={{ margin: "139px 0" }}>
             Cảm ơn bạn đã tin dùng sản phẩm của chúng tôi ! <br />
-            <Button type="primary" shape="round" size='large' style={{ backgroundColor: '#0C713D', color: "white" }}>Bạn có thể xem lại lịch sử đơn hàng tại đây</Button>
+            <Button type="primary" shape="round" size='large' style={{ backgroundColor: '#0C713D', color: "white" }}>
+              Bạn có thể xem chi tiết đơn hàng tại đây
+            </Button>
           </h1>
           : <Row>
             <Col span={12}>

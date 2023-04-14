@@ -4,6 +4,7 @@ import Products from "./page/Products";
 import Cart from "./page/Cart";
 import Login from "./page/Login";
 import Register from "./page/Register";
+import OrderHistory from "./page/OrderHistory";
 import { Route, Routes } from "react-router-dom";
 import CartContext from "./context/Cart";
 import AuthContext from "./context/Auth";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/Cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/order-history" element={<OrderHistory />} />
           </Routes>
         </CartContext.Provider>
       </AuthContext.Provider>
