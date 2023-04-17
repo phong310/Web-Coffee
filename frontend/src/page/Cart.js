@@ -45,9 +45,14 @@ export default function Cart() {
     setNameItem(itemNames);
     setQuantityItem(quantityItemss)
 
-    setPriceItem(cartItem.reduce((acc, item) => {
-      return (acc + item.price * item.quantity) + 15000;
-    }, 0))
+  }, [cartItem])
+
+  // Tổng giá
+  useEffect(() => {
+    const PriceTotal = cartItem.reduce((acc, item) => {
+      return (acc + item.price * item.quantity);
+    }, 0)
+    setPriceItem(PriceTotal + 15000)
   }, [cartItem])
 
   if (!cartItem.length && checkEmpty) {
