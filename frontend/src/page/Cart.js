@@ -36,7 +36,7 @@ export default function Cart() {
 
   useEffect(() => {
     // sản phẩm 
-    const itemNames = cartItem.map((item) => ({ name: item.title, quantity: item.quantity }));
+    const itemNames = cartItem.map((item) => ({ name: item.title, quantity: item.quantity, avatar: item.img }));
 
     // tổng số lượng sp
     const quantityItemss = cartItem.reduce((idx, item) => {
