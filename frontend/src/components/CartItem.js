@@ -3,13 +3,14 @@ import StarRatings from "react-star-ratings";
 import Money from "./Money";
 import { FaTimesCircle } from "react-icons/fa";
 import "../CSS/CartItem.css";
+import { Image } from "antd";
 
 export default function CartItem({ data, onQuantityChange, deleteItemsCart }) {
   return (
     <>
       <div className="cart_item_container">
         <div className="cart_item_img">
-          <img src={data.img} alt="" />
+          <Image width={70} src={data.img} alt="" />
         </div>
         <div className="cart_item_infor">
           <div className="cart_item_title">{data.title}</div>
@@ -23,7 +24,8 @@ export default function CartItem({ data, onQuantityChange, deleteItemsCart }) {
             />
           </div>
           <div className="cart_unit_price">
-            <Money value={data.price} />
+            <Money value={data.price} /> <br />
+            Size:  <b>{data.size.join(", ")}</b>
           </div>
           <div className="cart_quantity_adjustment_container">
             <QuantityAdjusment

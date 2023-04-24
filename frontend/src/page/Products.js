@@ -17,7 +17,7 @@ const { Option } = Select;
 
 export default function Products() {
   const [title, setTitle] = useState("🥤 THỨC UỐNG ☕️");
-  const [imgCover, setImgCover] = useState("https://phuclong.com.vn/uploads/category/d028083085975d-dr_coconutcaramel_1920576old.jpg")
+  const [imgCover, setImgCover] = useState("https://phuclong.com.vn/uploads/category/e737425c970257-refreshinglongan_1920.jpg")
 
   // Tìm kiếm
   const [filterName, setFilterName] = useState("")
@@ -70,7 +70,7 @@ export default function Products() {
     switch (e) {
       case "1":
         setTitle("🥤 THỨC UỐNG ☕️");
-        setImgCover("https://phuclong.com.vn/uploads/category/d028083085975d-dr_coconutcaramel_1920576old.jpg")
+        setImgCover("https://phuclong.com.vn/uploads/category/e737425c970257-refreshinglongan_1920.jpg")
         break;
       case "2":
         setTitle("🫘 SNACKS 🍿");

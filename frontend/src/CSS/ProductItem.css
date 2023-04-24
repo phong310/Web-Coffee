@@ -80,3 +80,13 @@
   font-size: 20px;
   margin-top: 30px;
 }
+
+.ant-modal-close-x {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.ant-radio-checked .ant-radio-inner {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}

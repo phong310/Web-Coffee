@@ -36,7 +36,7 @@ export default function Cart() {
 
   useEffect(() => {
     // sản phẩm 
-    const itemNames = cartItem.map((item) => ({ name: item.title, quantity: item.quantity, avatar: item.img }));
+    const itemNames = cartItem.map((item) => ({ name: item.title, size: item.size, quantity: item.quantity, avatar: item.img }));
 
     // tổng số lượng sp
     const quantityItemss = cartItem.reduce((idx, item) => {
@@ -84,6 +84,7 @@ export default function Cart() {
         return { ...prod, quantity: newQuantity };
       }
     });
+    // console.log(newCartItems)
     setCartItem(newCartItems);
   };
 
