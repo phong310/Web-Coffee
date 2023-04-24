@@ -1,19 +1,18 @@
-import { Button, Checkbox, Col, Image, Input, Modal, Radio, Row, message } from 'antd';
-import React, { useContext, useState } from 'react';
-import Money from '../Money';
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Col, Image, Input, Modal, Row, message } from 'antd';
+import React, { useContext, useState } from 'react';
+import "../../CSS/AddModal.css";
 import CartContext from '../../context/Cart';
-import { useNavigate } from 'react-router-dom';
-import "../../CSS/AddModal.css"
+import Money from '../Money';
 
 export default function AddProduct({ open, setOpen, item }) {
     const { TextArea } = Input;
-    let navigate = useNavigate();
     const cartCtx = useContext(CartContext);
     const { cartItem, setCartItem } = cartCtx;
 
 
     const [quantity, setQuantity] = useState(typeof item?.quantity === 'number' ? item.quantity : 1)
+    const [noteProduct, setNoteProduct] = useState("")
 
     const handleOk = () => {
         setOpen(false);
@@ -33,12 +32,14 @@ export default function AddProduct({ open, setOpen, item }) {
     };
 
 
-    const handleAdd = (value, size) => {
+    const handleAdd = (value, size, note) => {
         const newCartItems = cartItem.slice(0);
         const index = cartItem.findIndex((cart) => cart.id === value.id);
         if (index < 0) {
             size = valueSize;
+            note = noteProduct
             item.size = size;
+            item.note = note
             item.quantity = quantity
             newCartItems.push(value);
         }
@@ -86,7 +87,7 @@ export default function AddProduct({ open, setOpen, item }) {
                                     <span style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "30px" }}>Ghi chú: </span>
                                 </Col>
                                 <Col style={{ marginLeft: 40, flex: 1 }}>
-                                    <TextArea rows={4} showCount placeholder="Ghi chú về sản phẩm..." maxLength={6} />
+                                    <TextArea value={noteProduct} onChange={(e) => setNoteProduct(e.target.value)} rows={4} showCount placeholder="Ghi chú về sản phẩm..." maxLength={50} />
                                 </Col>
                             </Row>
                             <Row style={{ marginBottom: "30px", alignItems: "center" }}>

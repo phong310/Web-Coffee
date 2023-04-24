@@ -23,6 +23,9 @@
   width: 60%;
   margin-bottom: 20px;
 }
+.delivery_wrapper {
+  margin-bottom: 20px;
+}
 .delivery_cash {
   margin: 10px 0px;
   border-bottom: 1px solid #cacaca;

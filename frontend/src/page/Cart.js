@@ -12,6 +12,7 @@ import axios from "axios";
 
 const { Title } = Typography;
 const { Step } = Steps;
+const { TextArea } = Input;
 
 export default function Cart() {
   const cartCtx = useContext(CartContext);
@@ -22,7 +23,7 @@ export default function Cart() {
   const [nameItem, setNameItem] = useState([]);
   const [quantityItem, setQuantityItem] = useState(0);
   const [priceItem, setPriceItem] = useState(0);
-  const [customerPhone, setCustomerPhone] = useState(0);
+  const [customerPhone, setCustomerPhone] = useState();
   const [customerAddress, setCustomerAddress] = useState("");
   const [orderDes, setOrderDes] = useState("");
   const [orderStatus, setOrderStatus] = useState("order")
@@ -36,7 +37,7 @@ export default function Cart() {
 
   useEffect(() => {
     // sản phẩm 
-    const itemNames = cartItem.map((item) => ({ name: item.title, size: item.size, quantity: item.quantity, avatar: item.img }));
+    const itemNames = cartItem.map((item) => ({ name: item.title, size: item.size, quantity: item.quantity, avatar: item.img, note: item.note }));
 
     // tổng số lượng sp
     const quantityItemss = cartItem.reduce((idx, item) => {
@@ -174,7 +175,7 @@ export default function Cart() {
                   <Input value={customerName} onChange={(e) => setCustomerName(e.target.value)} type="text" placeholder="Tên người nhận" />
                   <Input value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} type="number" placeholder="Số điện thoại" />
                   <Input value={customerAddress} onChange={(e) => setCustomerAddress(e.target.value)} type="text" placeholder="Địa chỉ giao hàng" />
-                  <Input value={orderDes} onChange={(e) => setOrderDes(e.target.value)} type="text" placeholder="Thêm ghi chú giao hàng" />
+                  <TextArea style={{ width: '515px' }} value={orderDes} onChange={(e) => setOrderDes(e.target.value)} type="text" placeholder="Thêm ghi chú giao hàng . . ." rows={5} showCount maxLength={50} />
                 </div>
                 <div className="delivery_pay">
                   <Radio.Group value={pay} onChange={(e) => setPay(e.target.value)}>
