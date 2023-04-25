@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { Col, Divider, Card } from 'antd'
 import Footer from '../components/Footer'
 import axios from "axios"
+import AuthContext from '../context/Auth'
+import { useNavigate } from 'react-router-dom'
 
 export default function OrderHistory() {
     const [data, setData] = useState({})
+    const auth = useContext(AuthContext)
+    let navigate = useNavigate()
 
     const getOrderAll = async () => {
         try {
@@ -18,7 +22,11 @@ export default function OrderHistory() {
     }
 
     useEffect(() => {
-        getOrderAll()
+        if (!auth.user) {
+            navigate('/')
+        } else {
+            getOrderAll()
+        }
     }, [])
 
 
