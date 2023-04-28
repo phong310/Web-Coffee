@@ -1,5 +1,6 @@
 import { Button, Checkbox, Col, Divider, Input, Radio, Row, Steps, Typography, message } from "antd";
 import React, { useContext, useEffect, useState } from "react";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { FaMoneyBillWaveAlt, FaRegCreditCard, FaShoppingCart, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../CSS/Cart.css";
@@ -16,7 +17,7 @@ const { TextArea } = Input;
 
 export default function Cart() {
   const cartCtx = useContext(CartContext);
-  const [pay, setPay] = useState(1)
+  const [pay, setPay] = useState()
   const [checkEmpty, setCheckEmpty] = useState(true)
   const [orderId, setOrderId] = useState(0);
   const [customerName, setCustomerName] = useState("");
@@ -189,10 +190,15 @@ export default function Cart() {
                       </div>
                     </div>
                     <div className="delivery_card">
-                      <Radio value={2} className="cardd">
+                      {/* <Radio value={2} className="cardd">
                         <FaRegCreditCard className="icon_cardd" />
                         Thẻ ngân hàng
-                      </Radio>
+                      </Radio> */}
+
+                      <PayPalScriptProvider options={{ "client-id": "Ab2Yu9K_K7mL1rIPV0D4TtjS-eR_1NexWqzKyV3ITsdGT06HxzYFErQ6vtTpQOYifg6Xqt98FLjuZJPP" }}>
+                        <PayPalButtons />
+                      </PayPalScriptProvider>
+                      <br />
                       <br />
                       <Checkbox>
                         Đồng ý với các{" "}
