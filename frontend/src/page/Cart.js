@@ -27,7 +27,8 @@ export default function Cart() {
   const [customerPhone, setCustomerPhone] = useState();
   const [customerAddress, setCustomerAddress] = useState("");
   const [orderDes, setOrderDes] = useState("");
-  const [orderStatus, setOrderStatus] = useState("order")
+  const [orderStatus, setOrderStatus] = useState("order");
+
 
 
 
@@ -92,7 +93,7 @@ export default function Cart() {
 
   // Tính tổng Tiền
   const totalPrice = cartItem.reduce((acc, item) => {
-    return acc + item.price * item.quantity;;
+    return acc + item.price * item.quantity;
   }, 0);
 
   // xóa item cart
@@ -137,6 +138,27 @@ export default function Cart() {
     } catch (e) {
       console.log("Err:", e)
     }
+  }
+
+  // Thanh toán Paypal
+  const createOrder = (data, actions) => {
+    return actions.order.create({
+      purchase_units: [
+        {
+          amount: {
+            value: (totalPrice + 15000)
+          },
+        },
+      ],
+    });
+  }
+
+  const onApprove = (data, actions) => {
+    return actions.order.capture().then(function () {
+      setCurrentOder(currentOrder + 2)
+      setCartItem([])
+      setCheckEmpty(false)
+    });
   }
 
   return (
@@ -195,8 +217,8 @@ export default function Cart() {
                         Thẻ ngân hàng
                       </Radio> */}
 
-                      <PayPalScriptProvider options={{ "client-id": "Ab2Yu9K_K7mL1rIPV0D4TtjS-eR_1NexWqzKyV3ITsdGT06HxzYFErQ6vtTpQOYifg6Xqt98FLjuZJPP" }}>
-                        <PayPalButtons />
+                      <PayPalScriptProvider options={{ "client-id": "AWJQdrLhlyUPKQANn9J848hR0SxzOtJu9T_lVUt3qjuc9fzEjjMbpyMcvDmVx_I2dLAiyytdLhDm7Zbx" }}>
+                        <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
                       </PayPalScriptProvider>
                       <br />
                       <br />
