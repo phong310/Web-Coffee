@@ -87,7 +87,7 @@ export default function BakeryItem(props) {
         content={AlerTypeMap[alertType]}
         type={alertType}
         confirmText={!auth.user ? "Đăng nhập" : "Hoàn tất"}
-        cancelText="Tiếp tục"
+        cancelText="Hủy"
         onCancel={() => {
           setAlertVisible(false);
         }}

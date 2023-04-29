@@ -17,7 +17,7 @@ const { TextArea } = Input;
 
 export default function Cart() {
   const cartCtx = useContext(CartContext);
-  const [pay, setPay] = useState()
+  const [pay, setPay] = useState(1)
   const [checkEmpty, setCheckEmpty] = useState(true)
   const [orderId, setOrderId] = useState(0);
   const [customerName, setCustomerName] = useState("");
@@ -141,12 +141,22 @@ export default function Cart() {
   }
 
   // Thanh toán Paypal
+  // format $
+  const convertToUSD = (vndAmount) => {
+    const exchangeRate = 23000; // Tỷ giá hối đoái
+    const usdAmount = (vndAmount / exchangeRate).toFixed(2); // Tính giá trị tương ứng trong USD
+    return usdAmount;
+  }
+
+  const ItemCart = cartItem.map((item) => item.title)
+
   const createOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [
         {
+          description: `Thanh toán sản phẩm ${ItemCart.join(', ')}`,
           amount: {
-            value: (totalPrice + 15000)
+            value: convertToUSD(totalPrice + 15000)
           },
         },
       ],
@@ -158,6 +168,7 @@ export default function Cart() {
       setCurrentOder(currentOrder + 2)
       setCartItem([])
       setCheckEmpty(false)
+      handleOrder()
     });
   }
 
@@ -212,16 +223,17 @@ export default function Cart() {
                       </div>
                     </div>
                     <div className="delivery_card">
-                      {/* <Radio value={2} className="cardd">
+                      <Radio value={2} className="cardd">
                         <FaRegCreditCard className="icon_cardd" />
                         Thẻ ngân hàng
-                      </Radio> */}
+                      </Radio>
 
-                      <PayPalScriptProvider options={{ "client-id": "AWJQdrLhlyUPKQANn9J848hR0SxzOtJu9T_lVUt3qjuc9fzEjjMbpyMcvDmVx_I2dLAiyytdLhDm7Zbx" }}>
+                      {pay === 2 ? <PayPalScriptProvider options={{ "client-id": "AWJQdrLhlyUPKQANn9J848hR0SxzOtJu9T_lVUt3qjuc9fzEjjMbpyMcvDmVx_I2dLAiyytdLhDm7Zbx" }}>
                         <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
-                      </PayPalScriptProvider>
+                      </PayPalScriptProvider> : ''}
                       <br />
                       <br />
+
                       <Checkbox>
                         Đồng ý với các{" "}
                         <span style={{ color: "#0C713D", fontWeight: "bold" }}>
