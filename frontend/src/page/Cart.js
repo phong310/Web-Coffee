@@ -1,15 +1,15 @@
 import { Button, Checkbox, Col, Divider, Input, Radio, Row, Steps, Typography, message } from "antd";
+import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { FaMoneyBillWaveAlt, FaRegCreditCard, FaShoppingCart, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../CSS/Cart.css";
 import CartItem from "../components/CartItem";
 import Footer from "../components/Footer";
 import Money from "../components/Money";
 import Navbar from "../components/Navbar";
+import { Paypal } from "../components/Paypal";
 import CartContext from "../context/Cart";
-import axios from "axios";
 
 const { Title } = Typography;
 const { Step } = Steps;
@@ -28,6 +28,7 @@ export default function Cart() {
   const [customerAddress, setCustomerAddress] = useState("");
   const [orderDes, setOrderDes] = useState("");
   const [orderStatus, setOrderStatus] = useState("order");
+  let navigate = useNavigate();
 
 
 
@@ -140,38 +141,6 @@ export default function Cart() {
     }
   }
 
-  // Thanh toán Paypal
-  // format $
-  const convertToUSD = (vndAmount) => {
-    const exchangeRate = 23000; // Tỷ giá hối đoái
-    const usdAmount = (vndAmount / exchangeRate).toFixed(2); // Tính giá trị tương ứng trong USD
-    return usdAmount;
-  }
-
-  const ItemCart = cartItem.map((item) => item.title)
-
-  const createOrder = (data, actions) => {
-    return actions.order.create({
-      purchase_units: [
-        {
-          description: `Thanh toán sản phẩm ${ItemCart.join(', ')}`,
-          amount: {
-            value: convertToUSD(totalPrice + 15000)
-          },
-        },
-      ],
-    });
-  }
-
-  const onApprove = (data, actions) => {
-    return actions.order.capture().then(function () {
-      setCurrentOder(currentOrder + 2)
-      setCartItem([])
-      setCheckEmpty(false)
-      handleOrder()
-    });
-  }
-
   return (
     <>
       <Navbar />
@@ -197,7 +166,9 @@ export default function Cart() {
         {currentOrder === 3 && !checkEmpty ?
           <h1 style={{ margin: "139px 0" }}>
             Cảm ơn bạn đã tin dùng sản phẩm của chúng tôi ! <br />
-            <Button type="primary" shape="round" size='large' style={{ backgroundColor: '#0C713D', color: "white" }}>
+            <Button type="primary" shape="round" size='large'
+              style={{ backgroundColor: '#0C713D', color: "white" }}
+              onClick={() => navigate('/order-history')}>
               Bạn có thể xem chi tiết đơn hàng tại đây
             </Button>
           </h1>
@@ -227,10 +198,9 @@ export default function Cart() {
                         <FaRegCreditCard className="icon_cardd" />
                         Thẻ ngân hàng
                       </Radio>
-
-                      {pay === 2 ? <PayPalScriptProvider options={{ "client-id": "AWJQdrLhlyUPKQANn9J848hR0SxzOtJu9T_lVUt3qjuc9fzEjjMbpyMcvDmVx_I2dLAiyytdLhDm7Zbx" }}>
-                        <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
-                      </PayPalScriptProvider> : ''}
+                      {pay === 2 ?
+                        <Paypal totalPrice={totalPrice} cartItem={cartItem} setCartItem={setCartItem} currentOrder={currentOrder} setCurrentOder={setCurrentOder} setCheckEmpty={setCheckEmpty} handleOrder={handleOrder} />
+                        : ''}
                       <br />
                       <br />
 
