@@ -199,7 +199,15 @@ export default function Cart() {
                         Thẻ ngân hàng
                       </Radio>
                       {pay === 2 ?
-                        <Paypal totalPrice={totalPrice} cartItem={cartItem} setCartItem={setCartItem} currentOrder={currentOrder} setCurrentOder={setCurrentOder} setCheckEmpty={setCheckEmpty} handleOrder={handleOrder} />
+                        <Paypal
+                          totalPrice={totalPrice}
+                          cartItem={cartItem}
+                          setCartItem={setCartItem}
+                          currentOrder={currentOrder}
+                          setCurrentOder={setCurrentOder}
+                          setCheckEmpty={setCheckEmpty}
+                          handleOrder={handleOrder}
+                        />
                         : ''}
                       <br />
                       <br />
