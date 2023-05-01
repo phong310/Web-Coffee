@@ -10,6 +10,7 @@ import Money from "../components/Money";
 import Navbar from "../components/Navbar";
 import { Paypal } from "../components/Paypal";
 import CartContext from "../context/Cart";
+import HeadingTitle from "../components/HeadingTitle";
 
 const { Title } = Typography;
 const { Step } = Steps;
@@ -144,7 +145,7 @@ export default function Cart() {
   return (
     <>
       <Navbar />
-      <div className="wrapper_cart">
+      {/* <div className="wrapper_cart">
         <Title level={1} className="cart_title" style={{ color: "#0C713D" }}>
           <FaShoppingCart className="icon_cart" />
           CART 🛒
@@ -154,7 +155,8 @@ export default function Cart() {
           src="https://phuclong.com.vn/images/icon_tealeaves.png"
           alt=""
         />
-      </div>
+      </div> */}
+      <HeadingTitle title="Giỏ hàng" />
       <div>
         <Col style={{ margin: "50px 300px 0px 300px" }}>
           <Steps current={currentOrder}>
