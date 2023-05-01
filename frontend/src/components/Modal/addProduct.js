@@ -99,7 +99,7 @@ export default function AddProduct({ open, setOpen, item }) {
                                 </Col>
                             </Row>
                             <Button className="btnAdd" onClick={() => handleAdd(item)}>
-                                TIẾP TỤC
+                                HOÀN TẤT
                                 <ArrowRightOutlined />
                             </Button>
 

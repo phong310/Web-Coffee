@@ -87,7 +87,7 @@ export default function SnackItem(props) {
         visible={alertVisible}
         content={AlerTypeMap[alertType]}
         type={alertType}
-        confirmText={!auth.user ? "Đăng nhập" : "Hoàn tất"}
+        confirmText={!auth.user ? "Đăng nhập" : "Tiếp tục"}
         cancelText="Hủy"
         onCancel={() => {
           setAlertVisible(false);

@@ -99,7 +99,7 @@ export default function AddBakery({ open, setOpen, item }) {
                                 </Col>
                             </Row>
                             <Button className="btnAdd" onClick={() => handleAdd(item)}>
-                                TIẾP TỤC
+                                HOÀN TẤT
                                 <ArrowRightOutlined />
                             </Button>
 
