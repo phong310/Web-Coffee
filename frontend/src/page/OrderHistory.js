@@ -11,9 +11,11 @@ import AuthContext from '../context/Auth'
 
 export default function OrderHistory() {
     const [data, setData] = useState([])
+    const [currentStep, setCurrentStep] = useState(2)
     const auth = useContext(AuthContext)
     const { Step } = Steps;
     let navigate = useNavigate()
+
 
     const getOrderAll = async () => {
         try {
@@ -32,6 +34,18 @@ export default function OrderHistory() {
             getOrderAll()
         }
     }, [])
+
+
+    useEffect(() => {
+        data.forEach((item) => {
+            if (item.order_status.every(item => item === 'order')) {
+                setCurrentStep(2);
+            } else {
+                setCurrentStep(4)
+            }
+        });
+    }, [data]);
+
 
     // Phân trang
     const [pagination, setPagination] = useState({
@@ -53,7 +67,7 @@ export default function OrderHistory() {
             title: 'STT',
             key: 'stt',
             width: 90,
-            render: (text, record, index) => <span>{index + 1}</span>,
+            render: (text, record, index) => <span>{(pagination.current - 1) * pagination.pageSize + index + 1}</span>,
         },
         {
             title: 'Thông tin người đặt',
@@ -174,8 +188,8 @@ export default function OrderHistory() {
             dataIndex: 'order_status',
             render: (value) => (
                 value.map((item, idx) =>
-                    <Tag key={idx} color={item === "order" ? "red" : "blue"}>
-                        {item === "order" ? "Đang xử lý..." : ""}
+                    <Tag key={idx} color={item === "order" ? "red" : "green"}>
+                        {item === "order" ? "Đang xử lý..." : "Giao hàng thành công"}
                     </Tag>
                 )
             )
@@ -197,7 +211,7 @@ export default function OrderHistory() {
                     }}
                     bordered={true}
                 >
-                    <Steps current={2} size='small'>
+                    <Steps current={currentStep} size='small'>
                         <Step title="Đặt hàng" />
                         <Step title="Xác nhận và thanh toán đơn hàng" />
                         <Step title="Đang giao hàng" />
