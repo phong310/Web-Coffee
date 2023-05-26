@@ -171,7 +171,9 @@ export default function Navbar() {
                     <Menu.Item key="one">
                       Hành trình tách cà phê vị đậm
                     </Menu.Item>
-                    <Menu.Item key="two">Hạt cà phê phúc long</Menu.Item>
+                    <Menu.Item key="two">
+                      <Link to="/news-coffee/">Hạt cà phê phúc long</Link>
+                    </Menu.Item>
                     <Menu.Item key="three">Nghê thuật pha chế</Menu.Item>
                   </Menu.SubMenu>
                 </Menu>

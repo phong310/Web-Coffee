@@ -1,5 +1,5 @@
 .wrapp_news {
-  padding: 100px 100px 0px 200px;
+  padding: 100px 200px 0px 200px;
 }
 .wrapp_content {
   padding: 0 250px;
@@ -20,6 +20,12 @@
   font-size: 18px;
   font-weight: 400;
   color: #0c713d;
+}
+.news_contents_coffee {
+  display: inline;
+  max-width: 300px;
+  font-size: 18px;
+  font-weight: 400;
 }
 .news_text:nth-child(2) {
   padding: 0px 50px;

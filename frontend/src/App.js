@@ -6,6 +6,7 @@ import Login from "./page/Login";
 import Register from "./page/Register";
 import OrderHistory from "./page/OrderHistory";
 import News from "./page/News";
+import NewsCoffee from "./page/NewsCoffee";
 import { Route, Routes } from "react-router-dom";
 import CartContext from "./context/Cart";
 import AuthContext from "./context/Auth";
@@ -39,6 +40,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/order-history" element={<OrderHistory />} />
             <Route path="/news" element={<News />} />
+            <Route path="/news-coffee" element={<NewsCoffee />} />
           </Routes>
         </CartContext.Provider>
       </AuthContext.Provider>
