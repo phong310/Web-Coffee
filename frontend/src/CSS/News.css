@@ -1,0 +1,37 @@
+.wrapp_news {
+  padding: 100px 100px 0px 200px;
+}
+.wrapp_content {
+  padding: 0 250px;
+}
+.content {
+  align-items: center;
+  justify-content: center;
+  max-width: 2600px;
+  margin-bottom: 10%;
+}
+.content:last-child {
+  margin-bottom: 120px;
+}
+
+.news_contents {
+  display: inline;
+  max-width: 300px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.news_text:nth-child(2) {
+  padding: 0px 50px;
+}
+
+.news_img {
+  text-align: center;
+}
+
+.news_img:nth-child(1) {
+  text-align: left;
+}
+.img {
+  width: 80%;
+  height: 100%;
+}

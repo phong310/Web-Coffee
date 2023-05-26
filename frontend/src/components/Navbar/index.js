@@ -183,7 +183,9 @@ export default function Navbar() {
                     title="TRÀ"
                     style={{ fontSize: 12 }}
                   >
-                    <Menu.Item key="one">Hành trình tách trà đậm vị</Menu.Item>
+                    <Menu.Item key="one">
+                      <Link to="/news/">Hành trình tách trà đậm vị</Link>
+                    </Menu.Item>
                     <Menu.Item key="two">Lá trà phúc long</Menu.Item>
                     <Menu.Item key="three">Nghê thuật pha trà</Menu.Item>
                   </Menu.SubMenu>
