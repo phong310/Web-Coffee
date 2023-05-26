@@ -18,7 +18,8 @@
   display: inline;
   max-width: 300px;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 400;
+  color: #0c713d;
 }
 .news_text:nth-child(2) {
   padding: 0px 50px;
