@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Layout, Row, Col, Menu, Typography, Space, Button, Badge } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { Layout, Row, Col, Menu, Typography, Space, Button, Badge, Avatar, Dropdown } from "antd";
+import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
+import "../../CSS/Navbar.css"
 import { SearchOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import CartContext from "../../context/Cart";
 import AuthContext from "../../context/Auth";
+import { toast } from 'react-toastify';
 
 const { Header, Content } = Layout;
 const { Text } = Typography;
@@ -14,6 +16,7 @@ const fontColor = {
   color: "#0C713D",
 };
 const BtnStyle = styled(Button)`
+  margin-top: 5px;
   padding-top: 15px;
   display: flex;
   font-size: 12px;
@@ -39,17 +42,49 @@ const LayoutStyled = styled(Layout)`
   margin-bottom: 5px;
 `;
 
+
+
 export default function Navbar() {
   const cartCtx = useContext(CartContext);
-  const authCtx = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  // console.log(authCtx)
+
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    navigate("/login");
+    toast.success("Đăng xuất thành công");
+    setUser("")
+  }
+
+  const handleOrderHistory = () => {
+    navigate("/order-history");
+  }
+
+  const itemsDrop = [
+    {
+      label: <a onClick={handleOrderHistory}>Lịch sử đơn hàng</a>,
+      key: '0',
+    },
+    {
+      label: <a href="#">Thông tin tài khoản</a>,
+      key: '1',
+    },
+    {
+      label: <a onClick={handleLogout}>Đăng xuất</a>,
+      key: '2',
+    },
+
+  ];
+
 
   return (
     <>
       <div>
         <LayoutStyled>
           <HeaderStyle>
-            <Row>
-              <Col span={8}>
+            <Row style={{ alignItems: 'center' }}>
+              <Col span={8} className="wrapp_delivery">
                 <img src="https://phuclong.com.vn/images/common/delivery.png" />
               </Col>
               <Col span={8}>
@@ -60,9 +95,6 @@ export default function Navbar() {
               </Col>
               <Col span={8}>
                 <Space size="middle">
-                  <Link to="/login" style={{ fontWeight: "bold", color: "Black" }}>
-                    Đăng nhập
-                  </Link>
                   <Text>
                     <a href="" style={fontColor}>
                       VN
@@ -72,24 +104,43 @@ export default function Navbar() {
                       EN
                     </a>
                   </Text>
-                  {authCtx.user ? (
-                    <Link to="/cart">
-                      <BtnStyle>
-                        Giỏ hàng
-                        <WrappCart>
-                          <Badge
-                            count={cartCtx.cartItem.length}
-                            showZero
-                            color="#0C713D"
-                          >
-                            <ShoppingCartOutlined
-                              style={{ fontSize: 22, color: "#0C713D" }}
-                            />
-                          </Badge>
-                        </WrappCart>
-                      </BtnStyle>
-                    </Link>
-                  ) : null}
+                  <Link to="/cart">
+                    <BtnStyle>
+                      Giỏ hàng
+                      <WrappCart>
+                        <Badge
+                          count={cartCtx.cartItem.length}
+                          showZero
+                          color="#0C713D"
+                        >
+                          <ShoppingCartOutlined
+                            style={{ fontSize: 22, color: "#0C713D" }}
+                          />
+                        </Badge>
+                      </WrappCart>
+                    </BtnStyle>
+                  </Link>
+                  {user ? (
+                    <Col style={{ marginLeft: '15px' }}>
+                      {user.avatar ? <Avatar size="30" src={user.avatar} /> : <Avatar size="30" icon={<UserOutlined />} />}
+                      <Dropdown
+                        overlay={<Menu items={itemsDrop} />}
+                        placement="bottom"
+                        arrow
+                        trigger={['click']}>
+                        <span style={{ fontWeight: "bold", color: "#0C713D", marginLeft: '10px', cursor: 'pointer' }}>{user.username}</span>
+                      </Dropdown>
+                    </Col>
+                  ) : (
+                    <>
+                      <Link
+                        to="/login"
+                        style={{ fontWeight: "bold", color: "#0C713D", marginLeft: '10px' }}
+                      >
+                        Đăng nhập
+                      </Link>
+                    </>
+                  )}
                 </Space>
               </Col>
             </Row>
@@ -120,7 +171,9 @@ export default function Navbar() {
                     <Menu.Item key="one">
                       Hành trình tách cà phê vị đậm
                     </Menu.Item>
-                    <Menu.Item key="two">Hạt cà phê phúc long</Menu.Item>
+                    <Menu.Item key="two">
+                      <Link to="/news-coffee/">Hạt cà phê phúc long</Link>
+                    </Menu.Item>
                     <Menu.Item key="three">Nghê thuật pha chế</Menu.Item>
                   </Menu.SubMenu>
                 </Menu>
@@ -132,8 +185,12 @@ export default function Navbar() {
                     title="TRÀ"
                     style={{ fontSize: 12 }}
                   >
-                    <Menu.Item key="one">Hành trình tách trà đậm vị</Menu.Item>
-                    <Menu.Item key="two">Lá trà phúc long</Menu.Item>
+                    <Menu.Item key="one">
+                      Hành trình tách trà đậm vị
+                    </Menu.Item>
+                    <Menu.Item key="two">
+                      <Link to="/news/">Lá trà phúc long</Link>
+                    </Menu.Item>
                     <Menu.Item key="three">Nghê thuật pha trà</Menu.Item>
                   </Menu.SubMenu>
                 </Menu>

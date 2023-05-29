@@ -1,39 +1,84 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Layout, Tabs, Select, Input, Button, Divider } from "antd";
+import { Layout, Tabs, Select, Input, Button, Divider, Tooltip } from "antd";
 import HeadingTitle from "../components/HeadingTitle";
 import Backtop from "../components/BackTop";
 import ProductItem from "./Items/ProductItem";
 import SnackItem from "./Items/SnackItem";
 import BakeryItem from "./Items/BakeryItem";
-// import { DataContext } from "../context/DataAPI";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
+import axios from "axios";
 import "../CSS/Products.css";
 
 const { Content } = Layout;
 const TabPane = Tabs.TabPane;
 const { Option } = Select;
 
-export default function Products({
-  productsData,
-  setProductsData,
-  snackData,
-  bakeryData,
-}) {
-  const [title, setTitle] = useState("THỨC UỐNG");
-  // console.log(productsData);
+export default function Products() {
+  const [title, setTitle] = useState("🥤 THỨC UỐNG ☕️");
+  const [imgCover, setImgCover] = useState("https://phuclong.com.vn/uploads/category/e737425c970257-refreshinglongan_1920.jpg")
+
+  // Tìm kiếm
+  const [filterName, setFilterName] = useState("")
+  const [filterSnack, setFilterSnack] = useState("")
+  const [filterBakery, setFilterBakery] = useState("")
+
+  const [products, setProducts] = useState([]);
+  const [snacks, setSnacks] = useState([]);
+  const [bakery, setBakery] = useState([])
+
+  const getProducts = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/getAllproducts")
+      setProducts(res.data)
+
+    } catch (e) {
+      console.log("Err:", e)
+    }
+  }
+
+  const getSnacks = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/snacks/getAllSnack")
+      setSnacks(res.data)
+
+    } catch (e) {
+      console.log("Err:", e)
+    }
+  }
+
+  const getBakery = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/bakery/getAllBakery")
+      setBakery(res.data)
+
+    } catch (e) {
+      console.log("Err:", e)
+    }
+  }
+
+
+  useEffect(() => {
+    getProducts();
+    getSnacks();
+    getBakery();
+  }, [])
+
 
   const handleChangeTitle = (e) => {
     switch (e) {
       case "1":
-        setTitle("THỨC UỐNG");
+        setTitle("🥤 THỨC UỐNG ☕️");
+        setImgCover("https://phuclong.com.vn/uploads/category/e737425c970257-refreshinglongan_1920.jpg")
         break;
       case "2":
-        setTitle("SNACKS");
+        setTitle("🫘 SNACKS 🍿");
+        setImgCover("https://phuclong.com.vn/uploads/category/035bb0ff5337a6-f31f1487ea3b853793e91869fe90a0c9ef.jpg")
         break;
       case "3":
-        setTitle("BAKERY");
+        setTitle("🍩 BAKERY 🍰");
+        setImgCover("https://phuclong.com.vn/uploads/category/cc670390a9c58d-15deb67f86b543croissant.jpg")
         break;
       default:
         setTitle("THỨC UỐNG");
@@ -41,35 +86,61 @@ export default function Products({
   };
 
   // sắp xếp price
-  const handleChangeSort = (item) => {
-    const result = productsData.filter((item) => item.price);
+  const SortItem = (item, data, setData) => {
+    const result = data.filter((item) => item.price);
     switch (item) {
       case (item = "increase-price"):
         result.sort((a, b) => a.price - b.price);
-        setProductsData(result);
+        setData(result);
         break;
       case (item = "descrease-price"):
         result.sort((a, b) => b.price - a.price);
-        setProductsData(result);
+        setData(result);
         break;
       default:
-        setProductsData(productsData);
+        setData(data);
         break;
     }
   };
 
-  // console.log(productsData);
+  // Tìm kiếm theo tên
+  const handleSearchFilter = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/search?title=${filterName}`);
+      const resSnack = await axios.get(`http://localhost:8000/snacks/search?title=${filterSnack}`)
+      const resBakery = await axios.get(`http://localhost:8000/bakery/search?title=${filterBakery}`)
+      setProducts(res.data)
+      setBakery(resBakery.data)
+      setSnacks(resSnack.data)
+
+    } catch (e) {
+      console.log("Err:", e)
+    }
+
+  }
+
+
+  // Reset tìm kiếm
+  const handleReset = () => {
+    setFilterName("")
+    setFilterSnack("")
+    setFilterBakery("")
+    getProducts();
+    getSnacks();
+    getBakery();
+  }
+
 
   return (
     <>
       <Navbar />
       <img
         className="img-cover"
-        alt=""
-        src="	https://phuclong.com.vn/uploads/category/7664dbc7279dc2-dr_berryberry_271022_1920576.jpg"
+        alt="cover"
+        src={imgCover}
       />
       <HeadingTitle title={title} />
-      <Content>
+      <Content className="content_product">
         <div className="products_container">
           <Tabs
             onChange={handleChangeTitle}
@@ -97,7 +168,9 @@ export default function Products({
                     <Select
                       defaultValue="Không lựa chọn"
                       className="group_item_select_price"
-                      onChange={(e) => handleChangeSort(e)}
+                      onChange={(e) =>
+                        SortItem(e, products, setProducts)
+                      }
                     >
                       <Option value="no-select">Không lựa chọn</Option>
                       <Option value="increase-price">Từ thấp đến cao</Option>
@@ -106,20 +179,43 @@ export default function Products({
                   </div>
                   <div className="group_search">
                     <strong>Tìm kiếm</strong>
-                    <Input type="text" placeholder="Tên sản phẩm" />
-                    <Button>
-                      <SearchOutlined />
-                    </Button>
+                    <Input value={filterName} onChange={(e) => setFilterName(e.target.value)} type="text" placeholder="Tên sản phẩm" />
+                    <Tooltip placement="top" title="Tìm kiếm">
+                      <Button onClick={handleSearchFilter} >
+                        <SearchOutlined />
+                      </Button>
+                    </Tooltip>
+
+                    <Tooltip placement="top" title="Reset">
+                      <Button onClick={handleReset} >
+                        <ReloadOutlined />
+                      </Button>
+                    </Tooltip>
+
                   </div>
                 </div>
               </div>
+
+              {/* Đồ uống */}
               <div className="wrapper_products">
-                {productsData.map((product) => {
+                {products.length !== 1 ? <div className="product_item">
+                  <div className="item_wrapper">
+                    <span className="bage_new">Món mới</span>
+                    <img className="img_in" src="https://phuclong.com.vn/uploads/dish/c4692e6548c0af-65000306hngtrcarameldaxay.png" alt="" />
+                  </div>
+                  <div className="info_item">
+                    <div className="item_name">Hồng Trà Caramel Dừa Đá Xay</div>
+                    <div className="item_price">70.000đ</div>
+                    <button className="item_btn">ĐẶT HÀNG</button>
+                  </div>
+                </div> : ""}
+                {products.map((product) => {
                   return <ProductItem product={product} key={product.id} />;
                 })}
               </div>
               <Divider />
             </TabPane>
+
             <TabPane tab="SNACKS" key="2">
               <div className="container_snack">
                 <div className="wrapper_snack">
@@ -128,28 +224,39 @@ export default function Products({
                     <Select
                       defaultValue="Không lựa chọn"
                       className="snack_item_select_price"
+                      onChange={(e) => SortItem(e, snacks, setSnacks)}
                     >
-                      <Option>Không lựa chọn</Option>
-                      <Option>Từ thấp đến cao</Option>
-                      <Option>Từ cao đến thấp</Option>
+                      <Option value="no-select">Không lựa chọn</Option>
+                      <Option value="increase-price">Từ thấp đến cao</Option>
+                      <Option value="descrease-price">Từ cao đến thấp</Option>
                     </Select>
                   </div>
                   <div className="snack_search">
                     <strong>Tìm kiếm</strong>
-                    <Input type="text" placeholder="Tên sản phẩm" />
-                    <Button>
-                      <SearchOutlined />
-                    </Button>
+                    <Input value={filterSnack} onChange={(e) => setFilterSnack(e.target.value)} type="text" placeholder="Tên sản phẩm" />
+                    <Tooltip placement="top" title="Tìm kiếm">
+                      <Button onClick={handleSearchFilter} >
+                        <SearchOutlined />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip placement="top" title="Reset">
+                      <Button onClick={handleReset} >
+                        <ReloadOutlined />
+                      </Button>
+                    </Tooltip>
                   </div>
                 </div>
               </div>
+              {/* Snack */}
               <div className="wrapper_products">
-                {snackData.map((snacks) => {
+                {snacks.map((snacks) => {
                   return <SnackItem snacks={snacks} key={snacks.id} />;
                 })}
               </div>
               <Divider />
             </TabPane>
+
+
             <TabPane tab="BAKERY" key="3">
               <div className="container_snack">
                 <div className="wrapper_snack">
@@ -158,23 +265,33 @@ export default function Products({
                     <Select
                       defaultValue="Không lựa chọn"
                       className="snack_item_select_price"
+                      onChange={(e) => SortItem(e, bakery, setBakery)}
                     >
-                      <Option>Không lựa chọn</Option>
-                      <Option>Từ thấp đến cao</Option>
-                      <Option>Từ cao đến thấp</Option>
+                      <Option value="no-select">Không lựa chọn</Option>
+                      <Option value="increase-price">Từ thấp đến cao</Option>
+                      <Option value="descrease-price">Từ cao đến thấp</Option>
                     </Select>
                   </div>
                   <div className="snack_search">
                     <strong>Tìm kiếm</strong>
-                    <Input type="text" placeholder="Tên sản phẩm" />
-                    <Button>
-                      <SearchOutlined />
-                    </Button>
+                    <Input value={filterBakery} onChange={(e) => setFilterBakery(e.target.value)} type="text" placeholder="Tên sản phẩm" />
+                    <Tooltip placement="top" title="Tìm kiếm">
+                      <Button onClick={handleSearchFilter} >
+                        <SearchOutlined />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip placement="top" title="Reset">
+                      <Button onClick={handleReset} >
+                        <ReloadOutlined />
+                      </Button>
+                    </Tooltip>
                   </div>
                 </div>
               </div>
+
+              {/* Bakery */}
               <div className="wrapper_products">
-                {bakeryData.map((bakery) => {
+                {bakery.map((bakery) => {
                   return <BakeryItem bakery={bakery} key={bakery.id} />;
                 })}
               </div>

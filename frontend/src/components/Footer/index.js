@@ -66,7 +66,7 @@ export default function Footer() {
             <Title level={4}>Đăng ký nhận tin khuyến mãi</Title>
             <Space>
               <Input placeholder="Nhập địa chỉ Email" style={{ width: 170 }} />
-              <Button>Gửi</Button>
+              <Button style={{ marginTop: 0 }}>Gửi</Button>
             </Space>
             <br />
             <br />
@@ -105,7 +105,7 @@ export default function Footer() {
       <footer style={copyRight}>
         <Space>
           <CopyrightOutlined />
-          <Text style={{color: 'White'}}>2022 Phạm Đình Phong CO., Ltd</Text>
+          <Text style={{ color: 'White' }}>2022 Phạm Đình Phong CO., Ltd</Text>
         </Space>
       </footer>
     </>

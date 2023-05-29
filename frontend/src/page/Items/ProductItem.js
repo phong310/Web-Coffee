@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Button, Typography } from "antd";
+import { Card, Button, Typography, Col, Image } from "antd";
 import CartContext from "../../context/Cart";
 import AuthContext from "../../context/Auth";
 import Money from "../../components/Money";
+import AddProduct from "../../components/Modal/addProduct";
 import Alert from "../../components/Alert";
 import "../../CSS/ProductItem.css";
 
@@ -21,61 +22,75 @@ const ProductItem = (props) => {
   const [alertType, setAlertType] = useState("success");
   let navigate = useNavigate();
 
+  // Modal pick size & quantity
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [item, setItem] = useState()
+
+  const showModal = () => {
+    setIsModalOpen(true);
+    setAlertVisible(false);
+  };
+
+
   const onAddToCart = (item, quantity) => {
     if (!auth.user) {
       setAlertType("confirm");
       setAlertVisible(true);
       return;
     }
-    const newCartItems = cartItem.slice(0);
+    setAlertVisible(true);
+    setItem(item)
+    // const newCartItems = cartItem.slice(0);
     const index = cartItem.findIndex((cart) => cart.id === item.id);
     if (index < 0) {
       quantity = 1;
       item.quantity = quantity;
-      newCartItems.push(item);
+      // newCartItems.push(item);
       setAlertType("success");
     } else {
       // newCartItems.splice(index, 1);
       // console.log("item have already existed");
       setAlertType("warning");
     }
-    setAlertVisible(true);
-    setCartItem(newCartItems);
+    // setCartItem(newCartItems);
   };
 
+
+
   const AlerTypeMap = {
-    success: "Added to cart",
-    warning: "Item already existed",
-    confirm: "Please login to perform action",
+    success: "Sản phẩm đã được chọn vui lòng hoàn tất để thanh toán",
+    warning: "Sản phẩm đã tồn tại trong giỏ hàng",
+    confirm: "Vui lòng đăng nhập trước khi đặt hàng",
   };
 
   return (
     <>
-      <div className="product_wrapper">
+      <Col className="product_wrapper">
         <Card
           className="product_cart"
           hoverable
-          cover={<img alt="" src={product.img} />}
+        // cover={<img alt="" src={product.img} />}
         >
+          <Col className="product_img">
+            <Image src={product.img} width={150} />
+          </Col>
           <Title level={5} className="product_title">
             {product.title}
           </Title>
           <strong className="product_price">
             <Money value={product.price} />
           </strong>
-          <br />
-          <br />
           <Button className="btnAdd" onClick={() => onAddToCart(product)}>
             ĐẶT HÀNG
           </Button>
         </Card>
-      </div>
+      </Col>
       <Alert
         visible={alertVisible}
         content={AlerTypeMap[alertType]}
         type={alertType}
-        confirmText={!auth.user ? "login" : "checkout"}
-        cancelText="continue"
+        confirmText={!auth.user ? "Đăng nhập" : "Tiếp tục"}
+        cancelText="Hủy"
         onCancel={() => {
           setAlertVisible(false);
         }}
@@ -83,10 +98,17 @@ const ProductItem = (props) => {
           if (!auth.user) {
             navigate("/login");
           } else {
-            navigate("/cart");
+            // navigate("/cart");
+            showModal()
           }
         }}
       />
+      {/* <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal> */}
+      <AddProduct open={isModalOpen} setOpen={setIsModalOpen} item={item} />
     </>
   );
 };

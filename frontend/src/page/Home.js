@@ -18,7 +18,7 @@ const imgStyle = {
 const styleColor = {
   color: "#0C713D",
 };
-const BtnStyle = styled(Button)`
+const BtnStyles = styled(Button)`
   background-color: #0c713d;
   color: white;
 `;
@@ -28,12 +28,11 @@ const WrappStyled1 = styled.div`
 const WrappStyled2 = styled.div`
   padding: 50px 100px 0px 0px;
 `;
-
 export default function Home() {
   return (
     <>
       <Navbar />
-      <div>
+      <div style={{ background: 'url("https://phuclong.com.vn/uploads/banner/6313d6d02ac48e-2949308c6b040fcoffeecopy.png")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right' }}>
         <Carousel autoplay style={{ marginTop: 10 }}>
           <div>
             <img
@@ -91,7 +90,7 @@ export default function Home() {
                   thưởng trà và cà phê ngày càng bay cao, vươn xa
                 </p>
                 <br />
-                <BtnStyle type="text">XEM THÊM</BtnStyle>
+                <BtnStyles type="text">XEM THÊM</BtnStyles>
               </WrappStyled1>
             </Col>
           </Row>
@@ -112,7 +111,7 @@ export default function Home() {
                   năng động và sáng tạo.
                 </p>
                 <br />
-                <BtnStyle type="text">GIA NHẬP ĐỘI NGŨ PHÚC LONG</BtnStyle>
+                <BtnStyles type="text">GIA NHẬP ĐỘI NGŨ PHÚC LONG</BtnStyles>
               </WrappStyled2>
             </Col>
             <Col span={12}>

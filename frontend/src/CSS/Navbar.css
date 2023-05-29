@@ -1,0 +1,22 @@
+.wrapp_delivery {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.wrapp_delivery > img {
+  transform: translateX(0);
+}
+.wrapp_delivery > img:hover {
+  animation: slide 0.3s ease-in-out infinite;
+}
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

@@ -1,21 +1,92 @@
 .product_wrapper {
-    padding: 20px 20px 0px 45px;
-    margin: 0px 5px;
+  padding: 20px 20px 0px 45px;
+  margin: 0px 5px;
 }
 .product_cart {
-    width: 300px;
-    height: 420px;
-    text-align: center;
-    padding: 60px;
-    border-radius: 10px;
-    border: none;
+  width: 300px;
+  height: 420px;
+  text-align: center;
+  padding: 60px;
+  border-radius: 10px;
+  border: none;
+  background-color: transparent;
+}
+.product_img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 .product_price {
-    font-size: 20px;
-    color: #0C713D
+  font-size: 20px;
+  color: #0c713d;
 }
 .btnAdd {
-    color: #0C713D;
-    font-weight: normal;
-    border-radius: 5px;
+  color: #0c713d;
+  font-weight: normal;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+.product_item {
+  background: url("https://phuclong.com.vn/images/icons/icon_hotproduct.png");
+  background-size: cover;
+  overflow: hidden;
+  background-color: #eff7f3;
+  text-align: left;
+  padding: 40px 0 40px 40px;
+  height: 400px;
+  width: 650px;
+  margin: 40px 0 40px 100px;
+}
+.product_item:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+.item_Wrapper {
+  transition: all 0.2s linear;
+  color: inherit;
+}
+.bage_new {
+  color: #fff;
+  font-weight: 900;
+  border-radius: 2px;
+  padding: 5px 8px;
+  position: absolute;
+  font-size: 10px;
+  background-color: #0c713d;
+  right: 53%;
+}
+.img_in {
+  float: right;
+  margin-left: 10px;
+  margin-bottom: 0;
+  margin-top: 20px;
+  width: 300px;
+}
+.infor_item {
+  position: absolute;
+  left: 40px;
+  right: 50%;
+}
+.item_name {
+  color: #0c713d;
+  font-size: 25px;
+  line-height: 30px;
+  font-weight: bold;
+}
+.item_price {
+  font-weight: 900;
+  color: #0c713d !important;
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+.ant-modal-close-x {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.ant-radio-checked .ant-radio-inner {
+  background-color: #1890ff;
+  border-color: #1890ff;
 }
